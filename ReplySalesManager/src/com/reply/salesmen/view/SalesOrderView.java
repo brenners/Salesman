@@ -25,9 +25,12 @@ public class SalesOrderView extends Activity {
 		CollectionWrapper colWrap = CollectionWrapper.getInstance();
 		SalesOrderSet orderset = colWrap.getSalesOrderSet();
 		
-		com.reply.salesmen.model.elements.SalesOrder so = orderset.getFirst();
+		com.reply.salesmen.model.elements.SalesOrder so = orderset.getFirst();		
+
+		if(so == null)
+			return;
 		
-		TextView t = (TextView) findViewById(R.id.objectID);	
+		TextView t = (TextView) findViewById(R.id.objectID);		
 		String val = "Object ID: " + so.getObjectId();
 		t.setText(val);
 	}

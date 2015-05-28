@@ -112,4 +112,9 @@ public class CollectionWrapper {
 		return this.salesOrderItemSet;
 	}
 	
+	public void useMockData() {
+		MockDataGenerator mockData = new MockDataGenerator();
+		this.salesOrderSet = mockData.getSalesOrderSet();
+		this.salesOrderItemSet = mockData.getSalesOrderItemsData();
+	}
 }

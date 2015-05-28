@@ -51,4 +51,9 @@ public class ConstantManager {
 	
 	public static final String CLASSNAME_MAINACTIVITY = "class com.reply.salesmen.MainActivity";
 	
+	/* Alertdialog: Title of Button*/
+	public static final String OK = "OK";
+	public static final String GO_ON_WITHOUT_LOADING = "Without";
+	public static final String RETRY_CONNECTION = "Retry";
+	
 }

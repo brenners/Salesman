@@ -19,24 +19,12 @@
  */
 package com.reply.salesmen.control;
 
-import java.io.IOException;
-import java.util.Iterator;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import com.reply.salesmen.MainActivity;
 import com.reply.salesmen.connect.ConnectionManager;
 import com.reply.salesmen.model.CollectionWrapper;
-import com.reply.salesmen.model.SalesOrderSet;
-import com.reply.salesmen.model.elements.SalesOrder;
-
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.view.View;
-import android.widget.Toast;
 
 /**
  * @author s.brenner
@@ -94,7 +82,43 @@ public class AsyncTaskHandler extends AsyncTask<String, Void, Void> {
 	@Override
 	protected Void doInBackground(String... params) {		
 		Log.i(logTag, "doInBackground");
+		
+		// Respect settings
+		SettingsManager sm = SettingsManager.getInstance();
+		
+		// Do we use Mock Data or real-time Data
+		if(sm.isUseMockDataGenerally()) {
+			// Generating Mock Data and exit
+			Log.i(logTag, "Generating Mock Data");
+			CollectionWrapper colWrap = CollectionWrapper.getInstance();
+			colWrap.useMockData();
+			
+			if(mainActivity != null) 
+				mainActivity.showToast("Mock Data is generated");
+			
+			return null;
+		}
+		
+		// Try to connect to the mentioned server
 		connectStatus = this.conMan.loadSets();
+		
+		// If the app is not able to connect to the server,
+		// ask for generating Mock Data
+		if(connectStatus == false) {
+			if(sm.isUseMockData()) {
+				// Generating Mock Data
+				Log.i(logTag, "Generating Mock Data");
+				
+				CollectionWrapper colWrap = CollectionWrapper.getInstance();
+				colWrap.useMockData();
+				
+				if(mainActivity != null) 
+					mainActivity.showToast("Mock Data is generated");				
+			}
+		}
+
+		if(mainActivity != null) 
+			mainActivity.showToast("Data load was successful");
 		
 		return null;
 	}
@@ -114,36 +138,28 @@ public class AsyncTaskHandler extends AsyncTask<String, Void, Void> {
 			// If system is connected show short message,
 			// if not show dialog alert box
 			if(connectStatus) {
-				mainActivity.showToast("Connection Status: " + connectStatus + " - Http Status Code: " + conMan.getStatus());
+				mainActivity.showToast("Connection Status: " + connectStatus + " - Http Status Code: " + conMan.getStatus());				
 			} else {
 				String title = "Connection Status:";
 				String msg = "Current Connection Status: " + connectStatus + " / Code: " + conMan.getStatus();
-				mainActivity.showAlertDialog(title, msg);
+				String posButtonTitle = ConstantManager.OK;
+				String negButtonTitle = ConstantManager.RETRY_CONNECTION;
+					
+				// Just show Alert Dialog if data load is not completed
+				SettingsManager sm = SettingsManager.getInstance();
+				if(!sm.isDataLoadCompleted())
+					mainActivity.showAlertDialog(title, msg, posButtonTitle, negButtonTitle);
 			}
 			
 		} else {
-			Log.i(logTag, "Not able to show Toast message on MainActivity");
+			Log.e(logTag, "Not able to show Toast message on MainActivity");
+			return;
 		}
 		
 		CollectionWrapper colWrap = CollectionWrapper.getInstance();
 		int size01 = colWrap.getSalesOrderSet().size();
 		int size02 = colWrap.getSalesOrderItemSet().size();
-		Log.i(logTag, "size salesorders: " + size01 + " / size salesorderitems: " + size02);
-				
-		Log.i(logTag, "Values of first Object in Collection Wrapper");
-		SalesOrderSet so = colWrap.getSalesOrderSet();		
-		SalesOrder o = so.getFirst();
-		
-		if(o != null) {
-			Log.i(logTag, ""+o.getAddress());
-			Log.i(logTag, ""+o.getContactName());
-			Log.i(logTag, ""+o.getCustomerName());
-			Log.i(logTag, ""+o.getDescription());
-			Log.i(logTag, ""+o.getEmployeeResponsibleName());
-			Log.i(logTag, ""+o.getPhone());
-			Log.i(logTag, ""+o.getObjectId());
-			Log.i(logTag, ""+o.getPostingDate());
-		}		
+		Log.i(logTag, "Size salesorders: " + size01 + " / size salesorderitems: " + size02);		
 	}
 		
 }

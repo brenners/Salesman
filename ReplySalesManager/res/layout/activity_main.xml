@@ -26,4 +26,15 @@
         android:onClick="onClick_Listener"
         android:text="Settings" />
 
+    <Button
+        android:id="@+id/B_LoadData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/B_Settings"
+        android:layout_alignRight="@+id/B_Settings"
+        android:layout_below="@+id/B_Settings"
+        android:drawableLeft="@drawable/sync"
+        android:onClick="onClick_Listener"
+        android:text="Load Data" />
+
 </RelativeLayout>

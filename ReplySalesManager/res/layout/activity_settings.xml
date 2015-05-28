@@ -42,22 +42,25 @@
     </EditText>
 
     <CheckBox
-        android:id="@+id/checkBox1"
+        android:id="@+id/CB_MockData_Al"
         android:layout_column="2"
         android:layout_gravity="left|top"
         android:layout_marginBottom="76dp"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
         android:layout_row="4"
+        android:checked="true"
+        android:onClick="onClick_Listener"
         android:text="Use Mock Data always" />
 
     <CheckBox
-        android:id="@+id/checkBox2"
+        android:id="@+id/CB_MockData"
         android:layout_column="2"
         android:layout_gravity="left|center_vertical"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
         android:layout_row="4"
-        android:text="Use Mock Data" />
+        android:text="Use Mock Data" 
+        android:onClick="onClick_Listener" />
 
 </GridLayout>
