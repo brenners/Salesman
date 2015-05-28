@@ -1,0 +1,29 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="${relativePackage}.${activityClass}" >
+
+    <Button
+        android:id="@+id/B_SalesOrder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="35dp"
+        android:layout_marginTop="43dp"
+        android:drawableLeft="@drawable/salesorder"
+        android:onClick="onClick_Listener"
+        android:text="SalesOrder" />
+
+    <Button
+        android:id="@+id/B_Settings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/B_SalesOrder"
+        android:layout_alignRight="@+id/B_SalesOrder"
+        android:layout_below="@+id/B_SalesOrder"
+        android:drawableLeft="@drawable/settings"
+        android:onClick="onClick_Listener"
+        android:text="Settings" />
+
+</RelativeLayout>
