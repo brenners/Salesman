@@ -28,12 +28,13 @@ import org.json.JSONObject;
 import android.util.Log;
 
 import com.reply.salesmen.model.elements.SalesOrder;
+import com.reply.salesmen.model.elements.SalesOrderItem;
 
 /**
  * @author s.brenner
  *
  */
-public class SalesOrderSet {
+public class SalesOrderSet implements Model<SalesOrder> {
 
 	/******************************************
 	 * 				Declaration 			  *
@@ -42,7 +43,6 @@ public class SalesOrderSet {
 	private final static String logTag = "SalesOrderSet";
 	
 	private static SalesOrderSet salesOrderSet = null;	
-	//private static JSONArray salesOrders = null;
 	private static ArrayList<SalesOrder> salesOrders = null;
 	private static int index = 0;
 	
@@ -52,7 +52,6 @@ public class SalesOrderSet {
 	 *****************************************/
 	
 	private SalesOrderSet() {		 		
-		//SalesOrderSet.salesOrders = new JSONArray();
 		SalesOrderSet.salesOrders = new ArrayList<SalesOrder>();
 	}
 	
@@ -64,8 +63,7 @@ public class SalesOrderSet {
 		
 		if(SalesOrderSet.salesOrderSet == null) {
 			SalesOrderSet.salesOrderSet = new SalesOrderSet();			
-		}
-		
+		}		
 		return SalesOrderSet.salesOrderSet;
 	}
 	
@@ -75,22 +73,27 @@ public class SalesOrderSet {
 	public void add(SalesOrder so) {
 		if(so != null) {
 			SalesOrderSet.salesOrders.add(so);
-			index = SalesOrderSet.salesOrders.size() - 1;
+			index = this.size() - 1;
 		}			
 	}
 	
 	public int size() {
-		//return SalesOrderSet.salesOrders.length();
 		return SalesOrderSet.salesOrders.size();
 	}
 	
-	//public JSONObject getFirst() throws JSONException {
 	public SalesOrder getFirst() {			
 		if(this.size() > 0)
 			return SalesOrderSet.salesOrders.get(0);
 		else
 			return null;
-	}	
+	}
+	
+	public SalesOrder getLast() {			
+		if(this.size() > 0)
+			return SalesOrderSet.salesOrders.get(this.size() - 1);
+		else
+			return null;
+	}
 	
 	public SalesOrder getCurrent() {				
 		return SalesOrderSet.salesOrders.get(index);
@@ -99,7 +102,7 @@ public class SalesOrderSet {
 	public SalesOrder getNext() {
 		int next = index;
 		
-		if((next+1) < SalesOrderSet.salesOrders.size() && SalesOrderSet.salesOrders.get(next+1) != null) {
+		if((next+1) < this.size() && SalesOrderSet.salesOrders.get(next+1) != null) {
 			index += 1;
 			return SalesOrderSet.salesOrders.get(index);
 		}else 
@@ -118,5 +121,22 @@ public class SalesOrderSet {
 	
 	public int getIndex() {
 		return index;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.reply.salesmen.model.Model#query()
+	 */
+	@Override
+	public ArrayList<SalesOrder> query(int salesOrderObjectID) {
+		
+		ArrayList<SalesOrder> list = new ArrayList<SalesOrder>();
+		
+		// Try to find Sales Order Items 
+		for (SalesOrder order: SalesOrderSet.salesOrders) {
+			if(order.getObjectId() == salesOrderObjectID)
+				list.add(order);
+		}
+		
+		return list;
 	}
 }

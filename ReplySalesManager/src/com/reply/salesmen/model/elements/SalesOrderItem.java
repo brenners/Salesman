@@ -31,8 +31,8 @@ public class SalesOrderItem {
 	
 	private int objectId; 
 	private double quantity;
-	private int ProductId;
-	private String prodDescription; 
+	private int productId;
+	private String description; 
 	private int numberInt;
 
 	
@@ -52,7 +52,7 @@ public class SalesOrderItem {
 		this.setObjectId(objectID);
 		this.setQuantity(quantity);
 		this.setProductId(productID);
-		this.setProdDescription(prodDescription);
+		this.setDescription(prodDescription);
 		this.setNumberInt(numberInt);
 	}
 	
@@ -120,14 +120,14 @@ public class SalesOrderItem {
 	 * @return the productId
 	 */
 	public int getProductId() {
-		return this.ProductId;
+		return this.productId;
 	}
 
 	/**
 	 * @param productId the productId to set
 	 */
 	public void setProductId(int productId) {
-		this.ProductId = productId;
+		this.productId = productId;
 	}
 	
 	/**
@@ -136,10 +136,10 @@ public class SalesOrderItem {
 	public void setProductId(String productId) {
 		try {
 			int val = Integer.parseInt(productId);
-			this.ProductId = val;
+			this.productId = val;
 			
 		} catch(NumberFormatException e) {
-			this.ProductId = 0;
+			this.productId = 0;
 		}
 		
 	}
@@ -147,15 +147,15 @@ public class SalesOrderItem {
 	/**
 	 * @return the prodDescription
 	 */
-	public String getProdDescription() {
-		return prodDescription;
+	public String getDescription() {
+		return description;
 	}
 
 	/**
 	 * @param prodDescription the prodDescription to set
 	 */
-	public void setProdDescription(String prodDescription) {
-		this.prodDescription = prodDescription;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	/**

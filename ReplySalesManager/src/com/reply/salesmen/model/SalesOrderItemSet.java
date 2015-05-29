@@ -20,33 +20,32 @@
 package com.reply.salesmen.model;
 
 import java.util.ArrayList;
-
-import org.json.JSONArray;
-
 import com.reply.salesmen.model.elements.SalesOrderItem;
 
 /**
  * @author s.brenner
  *
  */
-public class SalesOrderItemSet {
+public class SalesOrderItemSet implements Model<SalesOrderItem> {
 
 	/******************************************
 	 * 				Declaration 			  *
 	 *****************************************/
 	
 	private static SalesOrderItemSet salesOrderItemSet = null;	
-	//private static JSONArray salesOrderItems = null;
 	private static ArrayList<SalesOrderItem> salesOrderItems = null;
-	
+	private static int index = 0;
 	
 	/******************************************
 	 * 				Constructor 			  *
 	 *****************************************/
 	
 	private SalesOrderItemSet() {	
-		//SalesOrderItemSet.salesOrderItems = new JSONArray();
 		SalesOrderItemSet.salesOrderItems = new ArrayList<SalesOrderItem>();
+	}
+	
+	public SalesOrderItemSet(ArrayList<SalesOrderItem> list) {
+		salesOrderItems = list;
 	}
 	
 	
@@ -69,13 +68,70 @@ public class SalesOrderItemSet {
 	 */
 	public void add(SalesOrderItem si) {
 		if(si != null)
-			//SalesOrderItemSet.salesOrderItems.put(si);
 			SalesOrderItemSet.salesOrderItems.add(si);
 	}
 	
 	public int size() {
-		//return SalesOrderItemSet.salesOrderItems.length();
 		return SalesOrderItemSet.salesOrderItems.size();
+	}
+
+	public SalesOrderItem getFirst() {			
+		if(this.size() > 0)
+			return SalesOrderItemSet.salesOrderItems.get(0);
+		else
+			return null;
+	}
+	
+	public SalesOrderItem getLast() {			
+		if(this.size() > 0)
+			return SalesOrderItemSet.salesOrderItems.get(this.size() - 1);
+		else
+			return null;
+	}
+	
+	public SalesOrderItem getCurrent() {				
+		return SalesOrderItemSet.salesOrderItems.get(index);
+	}
+	
+	public SalesOrderItem getNext() {
+		int next = index;
+		
+		if((next+1) < this.size() && SalesOrderItemSet.salesOrderItems.get(next+1) != null) {
+			index += 1;
+			return SalesOrderItemSet.salesOrderItems.get(index);
+		}else 
+			return null;
+	}
+	
+	public SalesOrderItem getPrev() {
+		int i = index;
+		
+		if(i > 0 && SalesOrderItemSet.salesOrderItems.get(i-1) != null) {
+			index -= 1;
+			return SalesOrderItemSet.salesOrderItems.get(index);
+		}else
+			return null;
+	}
+	
+	public int getIndex() {
+		return index;
+	}
+	
+	/* (non-Javadoc)
+	 * @see com.reply.salesmen.model.Model#query()
+	 */
+	@Override
+	public ArrayList<SalesOrderItem> query(int salesOrderObjectID) {
+		
+		ArrayList<SalesOrderItem> list = new ArrayList<SalesOrderItem>();
+		
+		// Try to find Sales Order Items 
+		for (SalesOrderItem item: SalesOrderItemSet.salesOrderItems) {
+			if(item.getObjectId() == salesOrderObjectID)
+				list.add(item);
+		}
+		
+		return list;
 	}
 	
 }

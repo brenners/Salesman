@@ -26,6 +26,7 @@ import java.util.Random;
 
 import com.reply.salesmen.control.ConstantManager;
 import com.reply.salesmen.model.elements.SalesOrder;
+import com.reply.salesmen.model.elements.SalesOrderItem;
 
 import android.util.Log;
 
@@ -130,7 +131,8 @@ public class MockDataGenerator {
 		for (int i=0; i<this.gv_entries; i++)
 		{
 			String lv_desc = "";
-			for (int y=0; y<this.gv_entries; y++) {
+			//for (int y=0; y<this.gv_entries; y++) {
+			for (int y=0; y<3; y++) {
 				int lv_iIndex = lv_random.nextInt((this.ga_zeichen.length - 1) + 1);
 				lv_desc += this.ga_zeichen[ lv_iIndex ] + " ";
 			}
@@ -185,6 +187,14 @@ public class MockDataGenerator {
 	
 	private void createSalesOrderItemsData() {
 		
+		for(int i = 0; i < this.gv_entries; i++) {			
+			SalesOrderItem lv_sales_order_item = new SalesOrderItem();			
+			lv_sales_order_item.setObjectId(this.ga_sales_orders_id.get(i));
+			lv_sales_order_item.setDescription(this.ga_sales_orders_desc.get(i));
+			lv_sales_order_item.setNumberInt(10);
+			
+			this.gv_colWrap.addObjectToSet(lv_sales_order_item, ConstantManager.SETNAME_SALESORDERITEM);
+		}	
 	}
 	
 	public SalesOrderSet getSalesOrderSet() {

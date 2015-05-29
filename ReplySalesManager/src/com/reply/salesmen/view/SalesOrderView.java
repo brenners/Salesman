@@ -1,12 +1,15 @@
 package com.reply.salesmen.view;
 
 import com.reply.salesmen.R;
+import com.reply.salesmen.control.SettingsManager;
 import com.reply.salesmen.model.CollectionWrapper;
 import com.reply.salesmen.model.SalesOrderSet;
 import com.reply.salesmen.model.elements.*;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -20,10 +23,12 @@ public class SalesOrderView extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_sales_order_view);
 		
-		// Show first Sales Order
+		// Get first Sales Order
 		colWrap = CollectionWrapper.getInstance();
 		so_set = colWrap.getSalesOrderSet();
-		SalesOrder so = so_set.getFirst();
+		SalesOrder so = so_set.getLast();
+		
+		// Show first object on view
 		setObject2View(so, false);		
 	}
 	
@@ -41,8 +46,12 @@ public class SalesOrderView extends Activity {
 				so = so_set.getPrev();
 				setObject2View(so, false);
 				break;
+			case (R.id.B_Items):
+				navigate2Intent(SalesOrderItemView.class);
+				break;
 		}
-		
+		// clear unnecessary object
+		so = null;
 	}
 
 	
@@ -50,6 +59,10 @@ public class SalesOrderView extends Activity {
 		
 		if(so == null)
 			return;
+		
+		// Save current Object ID
+		SettingsManager sm = SettingsManager.getInstance();
+		sm.setCurrentObjectId(so.getObjectId());
 		
 		// Fill all values of visible fields		
 		TextView t_objID = (TextView) findViewById(R.id.ET_ObjectID);		
@@ -84,4 +97,11 @@ public class SalesOrderView extends Activity {
 		t_index.setText("Index: " + so_set.getIndex());
 		
 	}
+	
+	private void navigate2Intent(Class cl) {		
+		Intent intent = new Intent(this, cl);
+		startActivity(intent);	
+	}
+	
+	
 }

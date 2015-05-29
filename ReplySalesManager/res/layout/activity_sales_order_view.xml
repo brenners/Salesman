@@ -33,17 +33,6 @@
 		android:layout_height="wrap_content"
 		android:layout_toLeftOf="@id/editLastName"
 		android:layout_below="@id/editFirstName" />	-->
-    
-    <TextView
-        android:id="@+id/TV_Customer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/ET_Description"
-        android:layout_marginTop="26dp"
-        android:paddingLeft="10dp"
-        android:text="Customer"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <EditText
         android:id="@+id/ET_CustomerName"
@@ -160,22 +149,42 @@
         android:text="Prev" />
 
     <TextView
-        android:id="@+id/TV_Label_General"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/B_Previous"
-        android:paddingLeft="10dp"
-        android:text="General"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <TextView
         android:id="@+id/TV_Index"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/B_Previous"
         android:layout_alignBottom="@+id/B_Previous"
-        android:layout_centerHorizontal="true"
-        android:text="@+string/index" />
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:id="@+id/B_Items"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/B_Next"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/B_Next"
+        android:drawableLeft="@drawable/items"
+        android:onClick="onClick_Listener"
+        android:text="Item" />
+
+    <TextView
+        android:id="@+id/TV_Label_General"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/B_Items"
+        android:layout_alignParentLeft="true"
+        android:paddingLeft="10dp"
+        android:text="General"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/TV_Customer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:paddingLeft="10dp"
+        android:text="Customer"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
     
 </RelativeLayout>

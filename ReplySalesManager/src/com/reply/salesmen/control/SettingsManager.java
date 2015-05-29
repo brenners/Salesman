@@ -38,6 +38,7 @@ public class SettingsManager {
 	private boolean useMockData;	
 	private boolean useMockDataGenerally;
 	
+	private int currentObjectId;
 	
 	/******************************************
 	 * 				Constructor 			  *
@@ -101,6 +102,20 @@ public class SettingsManager {
 	 */
 	public void setDataLoadCompleted(boolean isDataLoadCompleted) {
 		this.isDataLoadCompleted = isDataLoadCompleted;
+	}
+
+	/**
+	 * @return the currentObjectId
+	 */
+	public int getCurrentObjectId() {
+		return currentObjectId;
+	}
+
+	/**
+	 * @param currentObjectId the currentObjectId to set
+	 */
+	public void setCurrentObjectId(int currentObjectId) {
+		this.currentObjectId = currentObjectId;
 	}
 	
 }

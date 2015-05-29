@@ -21,11 +21,13 @@ package com.reply.salesmen.model.elements;
 
 import java.security.Timestamp;
 
+import com.reply.salesmen.model.CollectionWrapper;
+
 /**
  * @author s.brenner
  *
  */
-public class SalesOrder {
+public class SalesOrder implements Elements {
 
 	/******************************************
 	 * 				Declaration 			  *
@@ -358,4 +360,15 @@ public class SalesOrder {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
+
+	/* (non-Javadoc)
+	 * @see com.reply.salesmen.model.elements.Elements#getDependentItem()
+	 */
+	@Override
+	public Object getDependentItems() {
+		// To Do: lade alle abhängigen Item Objects von SalesOrderItemSet
+		CollectionWrapper colWrap = CollectionWrapper.getInstance();
+		return colWrap.getSalesOrderItemSet().query(this.objectId);		
+	}
+
 }

@@ -35,6 +35,11 @@
             android:label="@string/title_activity_settings"
             android:parentActivityName=".MainActivity" >
         </activity>
+        <activity
+            android:name=".view.SalesOrderItemView"
+            android:label="@string/title_activity_sales_order_item_view"
+            android:parentActivityName=".MainActivity" >
+        </activity>
     </application>
 
 </manifest>

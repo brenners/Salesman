@@ -13,5 +13,6 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_example">Example action</string>
     <string name="title_activity_sales_order_view">SalesOrderView</string>
+    <string name="title_activity_sales_order_item_view">SalesOrderItemView</string>
 
 </resources>
