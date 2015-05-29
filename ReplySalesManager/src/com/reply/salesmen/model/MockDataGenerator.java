@@ -61,7 +61,9 @@ public class MockDataGenerator {
 	private ArrayList<String> ga_sales_orders_customer_name;
 	private ArrayList<String> ga_sales_orders_contact_name;
 	
-	private final char[] ga_zeichen = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u' };
+	private final String[] ga_zeichen = { "Test", "Dies", "Welt", "Opel", "BMW", "VW", "Dortmund", "München",
+										  "Hamburg", "Reply", "ist", "ein", "Test", "Vuzix", "Android", "ein",
+										  ".", "Heute", "wird", "gefeiert", "!" };
 	private final String[] ga_names = { "Horst", "Meyer", "Bechthold", "Ossmeier", "Wieber", 
 										"Lutz", "Heyes", "Gerber", "Mercer", "Meiser", 
 										"Blanco", "Peters", "Deller", "Krysovic", "Petarsch",
@@ -130,7 +132,7 @@ public class MockDataGenerator {
 			String lv_desc = "";
 			for (int y=0; y<this.gv_entries; y++) {
 				int lv_iIndex = lv_random.nextInt((this.ga_zeichen.length - 1) + 1);
-				lv_desc += this.ga_zeichen[ lv_iIndex ];
+				lv_desc += this.ga_zeichen[ lv_iIndex ] + " ";
 			}
 			this.ga_sales_orders_desc.add(lv_desc);
 		}

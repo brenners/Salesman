@@ -33,43 +33,6 @@
 		android:layout_height="wrap_content"
 		android:layout_toLeftOf="@id/editLastName"
 		android:layout_below="@id/editFirstName" />	-->
-		
-
-
-
-
-    
-	<TextView
-        android:id="@+id/TV_Label_General"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="14dp"
-        android:paddingLeft="10dp"
-        android:text="General"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-    
-    <EditText
-        android:id="@+id/ET_ObjectID"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/ET_Description"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="31dp"
-        android:ems="10"
-        android:inputType="number" >
-
-        <requestFocus />
-    </EditText>
-
-      <EditText
-        android:id="@+id/ET_Description"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/ET_CustomerId"
-        android:layout_below="@+id/ET_ObjectID"
-        android:ems="10" />
     
     <TextView
         android:id="@+id/TV_Customer"
@@ -155,7 +118,64 @@
         android:layout_below="@+id/ET_ContactID"
         android:ems="10"
         android:inputType="textPersonName" />
-        
-         
+
+    <EditText
+        android:id="@+id/ET_Description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/ET_CustomerId"
+        android:layout_below="@+id/ET_ObjectID"
+        android:ems="10" >
+
+        <requestFocus />
+    </EditText>
+
+    <EditText
+        android:id="@+id/ET_ObjectID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/ET_Description"
+        android:layout_below="@+id/TV_Label_General"
+        android:ems="10"
+        android:inputType="number" />
+
+    <Button
+        android:id="@+id/B_Next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:drawableRight="@drawable/next"
+        android:onClick="onClick_Listener"
+        android:text="Next" />
+
+    <Button
+        android:id="@+id/B_Previous"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:drawableLeft="@drawable/prev"
+        android:onClick="onClick_Listener"
+        android:text="Prev" />
+
+    <TextView
+        android:id="@+id/TV_Label_General"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/B_Previous"
+        android:paddingLeft="10dp"
+        android:text="General"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/TV_Index"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/B_Previous"
+        android:layout_alignBottom="@+id/B_Previous"
+        android:layout_centerHorizontal="true"
+        android:text="@+string/index" />
     
 </RelativeLayout>

@@ -44,6 +44,7 @@ public class SalesOrderSet {
 	private static SalesOrderSet salesOrderSet = null;	
 	//private static JSONArray salesOrders = null;
 	private static ArrayList<SalesOrder> salesOrders = null;
+	private static int index = 0;
 	
 	
 	/******************************************
@@ -62,8 +63,7 @@ public class SalesOrderSet {
 	public static SalesOrderSet getInstance() {
 		
 		if(SalesOrderSet.salesOrderSet == null) {
-			SalesOrderSet.salesOrderSet = new SalesOrderSet();
-			
+			SalesOrderSet.salesOrderSet = new SalesOrderSet();			
 		}
 		
 		return SalesOrderSet.salesOrderSet;
@@ -73,8 +73,10 @@ public class SalesOrderSet {
 	 * @param so
 	 */
 	public void add(SalesOrder so) {
-		if(so != null)
+		if(so != null) {
 			SalesOrderSet.salesOrders.add(so);
+			index = SalesOrderSet.salesOrders.size() - 1;
+		}			
 	}
 	
 	public int size() {
@@ -85,8 +87,36 @@ public class SalesOrderSet {
 	//public JSONObject getFirst() throws JSONException {
 	public SalesOrder getFirst() {			
 		if(this.size() > 0)
-			return SalesOrderSet.salesOrders.get(0);//JSONObject(0);
+			return SalesOrderSet.salesOrders.get(0);
 		else
 			return null;
 	}	
+	
+	public SalesOrder getCurrent() {				
+		return SalesOrderSet.salesOrders.get(index);
+	}
+	
+	public SalesOrder getNext() {
+		int next = index;
+		
+		if((next+1) < SalesOrderSet.salesOrders.size() && SalesOrderSet.salesOrders.get(next+1) != null) {
+			index += 1;
+			return SalesOrderSet.salesOrders.get(index);
+		}else 
+			return null;
+	}
+	
+	public SalesOrder getPrev() {
+		int i = index;
+		
+		if(i > 0 && SalesOrderSet.salesOrders.get(i-1) != null) {
+			index -= 1;
+			return SalesOrderSet.salesOrders.get(index);
+		}else
+			return null;
+	}
+	
+	public int getIndex() {
+		return index;
+	}
 }

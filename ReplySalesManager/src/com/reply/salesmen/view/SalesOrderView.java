@@ -7,20 +7,44 @@ import com.reply.salesmen.model.elements.*;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 public class SalesOrderView extends Activity {
 
+	private CollectionWrapper colWrap;
+	private SalesOrderSet so_set;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_sales_order_view);
 		
-		CollectionWrapper colWrap = CollectionWrapper.getInstance();
-		SalesOrderSet so_set = colWrap.getSalesOrderSet();
+		// Show first Sales Order
+		colWrap = CollectionWrapper.getInstance();
+		so_set = colWrap.getSalesOrderSet();
 		SalesOrder so = so_set.getFirst();
-		setObject2View(so, false);
+		setObject2View(so, false);		
 	}
+	
+	public void onClick_Listener(View view) {
+		SalesOrder so = null;
+		
+		switch(view.getId()) {
+			case (R.id.B_Next):
+				// Navigate and display to next Sales Order
+				so = so_set.getNext();
+				setObject2View(so, false);
+				break;
+			case (R.id.B_Previous):
+				// Navigate and display to previous Sales Order
+				so = so_set.getPrev();
+				setObject2View(so, false);
+				break;
+		}
+		
+	}
+
 	
 	private void setObject2View(SalesOrder so, boolean editable) {
 		
@@ -55,6 +79,9 @@ public class SalesOrderView extends Activity {
 		
 		TextView t_contName = (TextView) findViewById(R.id.ET_ContactName);		
 		t_contName.setText("Contact Name: " + so.getContactName());
+		
+		TextView t_index = (TextView) findViewById(R.id.TV_Index);
+		t_index.setText("Index: " + so_set.getIndex());
 		
 	}
 }
