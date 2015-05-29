@@ -1,5 +1,8 @@
 package com.reply.salesmen;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.reply.salesmen.connect.ConnectionManager;
 import com.reply.salesmen.control.AsyncTaskHandler;
 import com.reply.salesmen.control.ConstantManager;
@@ -11,9 +14,16 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.content.res.AssetManager;
 import android.os.Bundle;
+import android.speech.RecognizerIntent;
+import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ListView;
 import android.widget.Toast;
 
 public class MainActivity extends Activity {
@@ -27,6 +37,18 @@ public class MainActivity extends Activity {
 	private AsyncTaskHandler asyncTask;
 	private ProgressDialog pd;
 	private AlertDialog.Builder adb;
+	
+	
+	// Voice Recognition: List result in ListView
+	private ListView wordsList;
+	/* Declares a request code, 
+	 * this is basically a checksum 
+	 * that we use to confirm the 
+	 * response when we call out to 
+	 * the voice recognition engine, 
+	 * this value could be anything you want.  */
+	private static final int REQUESTCODE = 1234;
+	
 	
 	/******************************************
 	 * 				Constructor 			  *
@@ -53,6 +75,20 @@ public class MainActivity extends Activity {
 		// define Asset Manager		
 		if(assetManager == null)
 			assetManager = this.getAssets();
+		
+		// Test Voice Recognition
+		wordsList = (ListView) findViewById(R.id.L_List);
+		
+		// Disable button if no recognition service is present
+		Button b_voice = (Button) findViewById(R.id.B_Voice);
+        PackageManager pm = getPackageManager();
+        List<ResolveInfo> activities = pm.queryIntentActivities(
+                new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH), 0);
+        if (activities.size() == 0)
+        {
+        	b_voice.setEnabled(false);
+        	b_voice.setText("Voice unabled");
+        }
 	}
 	
 	private void startAsyncTask() {
@@ -73,7 +109,7 @@ public class MainActivity extends Activity {
 		switch(view.getId()) {
 			case (R.id.B_SalesOrder):
 				if(sm.isDataLoadCompleted())					
-					navigate2Intent(SalesOrderView.class);		
+					navigate2Intent(SalesOrderView.class);
 				else {
 					String title = "No Data is loaded:";
 					String msg = "Do you want to load Mock Data first?: ";
@@ -89,8 +125,10 @@ public class MainActivity extends Activity {
 			case (R.id.B_LoadData):
 				// start connecting to Server
 				this.startAsyncTask();
-				sm.setDataLoadCompleted(true);
-			
+				sm.setDataLoadCompleted(true);			
+				break;
+			case (R.id.B_Voice):
+				startVoiceRecognitionActivity();
 				break;
 		}
 	}
@@ -194,4 +232,38 @@ public class MainActivity extends Activity {
 	     .setIcon(android.R.drawable.ic_dialog_alert)
 	     .show();
 	}
+
+	/**
+     * Fire an intent to start the voice recognition activity.
+     */
+    private void startVoiceRecognitionActivity()
+    {
+        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+                RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Voice recognition Demo...");
+        startActivityForResult(intent, REQUESTCODE);
+    }
+    
+    /**
+     * Handle the results from the voice recognition activity.
+     */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        if (requestCode == REQUESTCODE && resultCode == RESULT_OK)
+        {
+            // Populate the wordsList with the String values the recognition engine thought it heard
+            ArrayList<String> matches = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+            
+            /* Test Recognition: if possible navigate to Sales Order view*/
+            if(matches.get(0).equals("sales order")) {
+            	navigate2Intent(SalesOrderView.class);
+            }
+            
+            wordsList.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,matches));
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+    
 }
