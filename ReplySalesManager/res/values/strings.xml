@@ -14,5 +14,6 @@
     <string name="action_example">Example action</string>
     <string name="title_activity_sales_order_view">SalesOrderView</string>
     <string name="title_activity_sales_order_item_view">SalesOrderItemView</string>
+    <string name="title_activity_sales_order_item_search_view">SalesOrderItemSearchView</string>
 
 </resources>

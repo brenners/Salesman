@@ -1,66 +1,81 @@
-<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/GridLayout1"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:columnCount="8"
-    android:orientation="horizontal"
-    tools:context="${relativePackage}.${activityClass}" >
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    tools:context="${relativePackage}.${activityClass}"
+    >
 
-    <Space
-        android:layout_column="3"
-        android:layout_gravity="fill_vertical"
-        android:layout_row="13" />
-
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_column="2"
-        android:layout_gravity="top|fill_horizontal|center"
-        android:layout_row="1"
-        android:text="Settings"
-        android:textSize="@android:dimen/app_icon_size" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_column="2"
-        android:layout_gravity="left|top"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_row="2"
-        android:text="Server Adress" />
-
-    <EditText
-        android:id="@+id/ServerAdress"
-        android:layout_width="299dp"
-        android:layout_column="2"
-        android:layout_gravity="left|top"
-        android:layout_marginLeft="10dp"
-        android:layout_row="3"
-        android:ems="10" >
-
-        <requestFocus />
-    </EditText>
-
-    <CheckBox
-        android:id="@+id/CB_MockData_Al"
-        android:layout_column="2"
-        android:layout_gravity="left|top"
-        android:layout_marginBottom="76dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_row="4"
-        android:checked="true"
-        android:onClick="onClick_Listener"
-        android:text="Use Mock Data always" />
-
-    <CheckBox
-        android:id="@+id/CB_MockData"
-        android:layout_column="2"
-        android:layout_gravity="left|center_vertical"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_row="4"
-        android:text="Use Mock Data" 
-        android:onClick="onClick_Listener" />
-
-</GridLayout>
+	<!--  <GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	    xmlns:tools="http://schemas.android.com/tools"
+	    android:id="@+id/GridLayout1"
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    android:columnCount="8"
+	    android:orientation="horizontal"
+	    tools:context="${relativePackage}.${activityClass}" >-->
+	
+    <GridLayout 
+        android:id="@+id/GridLayout1"
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    android:columnCount="8"
+	    android:orientation="horizontal">
+	    
+	    <Space
+	        android:layout_column="3"
+	        android:layout_gravity="fill_vertical"
+	        android:layout_row="13" />
+	
+	    <TextView
+	        android:id="@+id/textView1"
+	        android:layout_column="2"
+	        android:layout_gravity="top|fill_horizontal|center"
+	        android:layout_row="1"
+	        android:text="Settings"
+	        android:textSize="@android:dimen/app_icon_size" />
+	
+	    <TextView
+	        android:id="@+id/textView2"
+	        android:layout_column="2"
+	        android:layout_gravity="left|top"
+	        android:layout_marginLeft="10dp"
+	        android:layout_marginTop="10dp"
+	        android:layout_row="2"
+	        android:text="Server Adress" />
+	
+	    <EditText
+	        android:id="@+id/ServerAdress"
+	        android:layout_width="299dp"
+	        android:layout_column="2"
+	        android:layout_gravity="left|top"
+	        android:layout_marginLeft="10dp"
+	        android:layout_row="3"
+	        android:ems="10" >
+	
+	        <requestFocus />
+	    </EditText>
+	
+	    <CheckBox
+	        android:id="@+id/CB_MockData_Al"
+	        android:layout_column="2"
+	        android:layout_gravity="left|top"
+	        android:layout_marginBottom="76dp"
+	        android:layout_marginLeft="10dp"
+	        android:layout_marginTop="10dp"
+	        android:layout_row="4"
+	        android:checked="true"
+	        android:onClick="onClick_Listener"
+	        android:text="Use Mock Data always" />
+	
+	    <CheckBox
+	        android:id="@+id/CB_MockData"
+	        android:layout_column="2"
+	        android:layout_gravity="left|center_vertical"
+	        android:layout_marginLeft="10dp"
+	        android:layout_marginTop="10dp"
+	        android:layout_row="4"
+	        android:text="Use Mock Data" 
+	        android:onClick="onClick_Listener" />
+	
+	</GridLayout>
+</ScrollView>	

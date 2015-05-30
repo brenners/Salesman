@@ -1,190 +1,201 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:scrollbars="vertical"
-    tools:context="${relativePackage}.${activityClass}" >
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    tools:context="${relativePackage}.${activityClass}"
+    >
+
+	<!-- <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	    xmlns:tools="http://schemas.android.com/tools"
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    android:scrollbars="vertical"
+	    tools:context="${relativePackage}.${activityClass}" > -->
+		
+    <RelativeLayout 
+    	android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    android:scrollbars="vertical">
+	    
+	    <!-- 
+	    <TextView
+	   		android:id="@+id/firstName"
+	   		android:text="First Name"
+	   		android:layout_width="wrap_content"
+	   		android:layout_height="wrap_content" />       	
+		<EditText
+			android:id="@+id/editFirstName"
+			android:width="100px"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_toRightOf="@id/firstName"/>
+	   	<EditText
+			android:id="@+id/editLastName"
+			android:width="100px"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_below="@id/editFirstName"
+			android:layout_alignLeft="@id/editFirstName"/>
+		<TextView
+			android:id="@+id/lastName"
+			android:text="Last Name"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_toLeftOf="@id/editLastName"
+			android:layout_below="@id/editFirstName" />	-->
 	
-    
-    
-    <!-- 
-    <TextView
-   		android:id="@+id/firstName"
-   		android:text="First Name"
-   		android:layout_width="wrap_content"
-   		android:layout_height="wrap_content" />       	
-	<EditText
-		android:id="@+id/editFirstName"
-		android:width="100px"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_toRightOf="@id/firstName"/>
-   	<EditText
-		android:id="@+id/editLastName"
-		android:width="100px"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_below="@id/editFirstName"
-		android:layout_alignLeft="@id/editFirstName"/>
-	<TextView
-		android:id="@+id/lastName"
-		android:text="Last Name"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_toLeftOf="@id/editLastName"
-		android:layout_below="@id/editFirstName" />	-->
-
-    <EditText
-        android:id="@+id/ET_CustomerName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/ET_CustomerId"
-        android:layout_centerHorizontal="true"
-        android:ems="10"
-        android:inputType="textPersonName" />
-
-    <EditText
-        android:id="@+id/ET_CustomerId"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/ET_CustomerName"
-        android:layout_below="@+id/TV_Customer"
-        android:ems="10"
-        android:inputType="number" />
-
-
-
-    <EditText
-        android:id="@+id/ET_Adress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/ET_EMail"
-        android:layout_below="@+id/ET_CustomerName"
-        android:ems="10" />
-
-    <EditText
-        android:id="@+id/ET_EMail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/ET_CustomerName"
-        android:layout_below="@+id/ET_Adress"
-        android:ems="10"
-        android:inputType="textEmailAddress" />
-
-    <EditText
-        android:id="@+id/ET_Phone"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/ET_EMail"
-        android:layout_below="@+id/ET_EMail"
-        android:ems="10"
-        android:inputType="phone" />
-
-    <TextView
-        android:id="@+id/TV_Label_Company"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/TV_Customer"
-        android:layout_below="@+id/ET_Phone"
-        android:layout_marginTop="16dp"
-        android:text="Company"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <EditText
-        android:id="@+id/ET_ContactID"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/ET_Phone"
-        android:layout_below="@+id/TV_Label_Company"
-        android:ems="10"
-        android:inputType="number" />
-
-    <EditText
-        android:id="@+id/ET_ContactName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/ET_ContactID"
-        android:layout_below="@+id/ET_ContactID"
-        android:ems="10"
-        android:inputType="textPersonName" />
-
-    <EditText
-        android:id="@+id/ET_Description"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/ET_CustomerId"
-        android:layout_below="@+id/ET_ObjectID"
-        android:ems="10" >
-
-        <requestFocus />
-    </EditText>
-
-    <EditText
-        android:id="@+id/ET_ObjectID"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/ET_Description"
-        android:layout_below="@+id/TV_Label_General"
-        android:ems="10"
-        android:inputType="number" />
-
-    <Button
-        android:id="@+id/B_Next"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:drawableRight="@drawable/next"
-        android:onClick="onClick_Listener"
-        android:text="Next" />
-
-    <Button
-        android:id="@+id/B_Previous"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:drawableLeft="@drawable/prev"
-        android:onClick="onClick_Listener"
-        android:text="Prev" />
-
-    <TextView
-        android:id="@+id/TV_Index"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/B_Previous"
-        android:layout_alignBottom="@+id/B_Previous"
-        android:layout_centerHorizontal="true" />
-
-    <Button
-        android:id="@+id/B_Items"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/B_Next"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/B_Next"
-        android:drawableLeft="@drawable/items"
-        android:onClick="onClick_Listener"
-        android:text="Item" />
-
-    <TextView
-        android:id="@+id/TV_Label_General"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/B_Items"
-        android:layout_alignParentLeft="true"
-        android:paddingLeft="10dp"
-        android:text="General"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <TextView
-        android:id="@+id/TV_Customer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_centerVertical="true"
-        android:paddingLeft="10dp"
-        android:text="Customer"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-    
-</RelativeLayout>
+	    <EditText
+	        android:id="@+id/ET_CustomerName"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_below="@+id/ET_CustomerId"
+	        android:layout_centerHorizontal="true"
+	        android:ems="10"
+	        android:inputType="textPersonName" />
+	
+	    <EditText
+	        android:id="@+id/ET_CustomerId"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignLeft="@+id/ET_CustomerName"
+	        android:layout_below="@+id/TV_Customer"
+	        android:ems="10"
+	        android:inputType="number" />
+	
+	
+	
+	    <EditText
+	        android:id="@+id/ET_Adress"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignLeft="@+id/ET_EMail"
+	        android:layout_below="@+id/ET_CustomerName"
+	        android:ems="10" />
+	
+	    <EditText
+	        android:id="@+id/ET_EMail"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignLeft="@+id/ET_CustomerName"
+	        android:layout_below="@+id/ET_Adress"
+	        android:ems="10"
+	        android:inputType="textEmailAddress" />
+	
+	    <EditText
+	        android:id="@+id/ET_Phone"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignLeft="@+id/ET_EMail"
+	        android:layout_below="@+id/ET_EMail"
+	        android:ems="10"
+	        android:inputType="phone" />
+	
+	    <TextView
+	        android:id="@+id/TV_Label_Company"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignRight="@+id/TV_Customer"
+	        android:layout_below="@+id/ET_Phone"
+	        android:layout_marginTop="16dp"
+	        android:text="Company"
+	        android:textAppearance="?android:attr/textAppearanceMedium" />
+	
+	    <EditText
+	        android:id="@+id/ET_ContactID"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignLeft="@+id/ET_Phone"
+	        android:layout_below="@+id/TV_Label_Company"
+	        android:ems="10"
+	        android:inputType="number" />
+	
+	    <EditText
+	        android:id="@+id/ET_ContactName"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignLeft="@+id/ET_ContactID"
+	        android:layout_below="@+id/ET_ContactID"
+	        android:ems="10"
+	        android:inputType="textPersonName" />
+	
+	    <EditText
+	        android:id="@+id/ET_Description"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignLeft="@+id/ET_CustomerId"
+	        android:layout_below="@+id/ET_ObjectID"
+	        android:ems="10" >
+	
+	        <requestFocus />
+	    </EditText>
+	
+	    <EditText
+	        android:id="@+id/ET_ObjectID"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignLeft="@+id/ET_Description"
+	        android:layout_below="@+id/TV_Label_General"
+	        android:ems="10"
+	        android:inputType="number" />
+	
+	    <Button
+	        android:id="@+id/B_Next"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentRight="true"
+	        android:layout_alignParentTop="true"
+	        android:drawableRight="@drawable/next"
+	        android:onClick="onClick_Listener"
+	        android:text="Next" />
+	
+	    <Button
+	        android:id="@+id/B_Previous"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentLeft="true"
+	        android:layout_alignParentTop="true"
+	        android:drawableLeft="@drawable/prev"
+	        android:onClick="onClick_Listener"
+	        android:text="Prev" />
+	
+	    <TextView
+	        android:id="@+id/TV_Index"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignBaseline="@+id/B_Previous"
+	        android:layout_alignBottom="@+id/B_Previous"
+	        android:layout_centerHorizontal="true" />
+	
+	    <Button
+	        android:id="@+id/B_Items"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignLeft="@+id/B_Next"
+	        android:layout_alignParentRight="true"
+	        android:layout_below="@+id/B_Next"
+	        android:drawableLeft="@drawable/items"
+	        android:onClick="onClick_Listener"
+	        android:text="Item" />
+	
+	    <TextView
+	        android:id="@+id/TV_Label_General"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignBottom="@+id/B_Items"
+	        android:layout_alignParentLeft="true"
+	        android:paddingLeft="10dp"
+	        android:text="General"
+	        android:textAppearance="?android:attr/textAppearanceMedium" />
+	
+	    <TextView
+	        android:id="@+id/TV_Customer"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentLeft="true"
+	        android:layout_centerVertical="true"
+	        android:paddingLeft="10dp"
+	        android:text="Customer"
+	        android:textAppearance="?android:attr/textAppearanceMedium" />
+	    
+	</RelativeLayout>
+</ScrollView>

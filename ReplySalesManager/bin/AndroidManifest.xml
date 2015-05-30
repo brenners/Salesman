@@ -40,6 +40,10 @@
             android:label="@string/title_activity_sales_order_item_view"
             android:parentActivityName=".MainActivity" >
         </activity>
+        <activity
+            android:name=".SalesOrderItemSearchView"
+            android:label="@string/title_activity_sales_order_item_search_view" >
+        </activity>
     </application>
 
 </manifest>

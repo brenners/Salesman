@@ -1,22 +1,35 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    tools:context="${relativePackage}.${activityClass}"
+    >
+    
+    <!-- <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="${relativePackage}.${activityClass}" >
+    tools:context="${relativePackage}.${activityClass}" > -->
+	
+	<RelativeLayout 
+	    android:layout_width="match_parent"
+    	android:layout_height="match_parent">
+	
+	    <TextView
+	        android:id="@+id/TV_SI_ObjectID"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/hello_world" />
+	
+	    <TextView
+	        android:id="@+id/TV_NumberInt"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentLeft="true"
+	        android:layout_below="@+id/TV_ObjectID"
+	        android:layout_marginTop="26dp"
+	        android:text="TextView" />
 
-    <TextView
-        android:id="@+id/TV_SI_ObjectID"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
-
-    <TextView
-        android:id="@+id/TV_NumberInt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/TV_ObjectID"
-        android:layout_marginTop="26dp"
-        android:text="TextView" />
-
-</RelativeLayout>
+	</RelativeLayout>
+</ScrollView>
+	
