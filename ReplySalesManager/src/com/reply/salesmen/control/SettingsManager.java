@@ -38,6 +38,8 @@ public class SettingsManager {
 	private boolean useMockData;	
 	private boolean useMockDataGenerally;
 	
+	private String URL;
+	
 	private int currentObjectId;
 	
 	/******************************************
@@ -114,8 +116,23 @@ public class SettingsManager {
 	/**
 	 * @param currentObjectId the currentObjectId to set
 	 */
-	public void setCurrentObjectId(int currentObjectId) {
-		this.currentObjectId = currentObjectId;
+	public void setCurrentObjectId(int newCurrentObjectId) {
+		currentObjectId = newCurrentObjectId;
 	}
+	
+	/**
+	 * @return the URL
+	 */
+	public String getURL() {
+		return URL;
+	}
+
+	/**
+	 * @param URL the URL to set
+	 */
+	public void setURL(String newURL) {
+		URL = newURL;
+	}
+
 	
 }

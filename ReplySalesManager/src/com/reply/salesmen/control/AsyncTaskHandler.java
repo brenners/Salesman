@@ -114,11 +114,12 @@ public class AsyncTaskHandler extends AsyncTask<String, Void, Void> {
 				
 				if(mainActivity != null) 
 					mainActivity.showToast("Mock Data is generated");				
+			} else {
+				mainActivity.showToast(this.conMan.errorMessage);
 			}
-		}
-
-		if(mainActivity != null) 
+		} else {
 			mainActivity.showToast("Data load was successful");
+		}
 		
 		return null;
 	}

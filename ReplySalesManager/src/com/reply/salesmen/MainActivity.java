@@ -1,13 +1,14 @@
 package com.reply.salesmen;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+//import com.example.android.camera2raw.tests.R;
 import com.reply.salesmen.connect.ConnectionManager;
 import com.reply.salesmen.control.AsyncTaskHandler;
 import com.reply.salesmen.control.ConstantManager;
 import com.reply.salesmen.control.SettingsManager;
-import com.reply.salesmen.control.VoiceManager;
 import com.reply.salesmen.view.*;
 
 import android.app.Activity;
@@ -18,20 +19,25 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.content.res.AssetManager;
+import android.hardware.Camera;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.util.Log;
+import android.view.SurfaceHolder;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
+import android.widget.VideoView;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements SurfaceHolder.Callback {
 
 	/******************************************
 	 * 				Declaration 			  *
 	 *****************************************/
+	
+	private final String TAG = "DebugTag";
 	
 	public static AssetManager assetManager;
 	
@@ -42,6 +48,8 @@ public class MainActivity extends Activity {
 	// Voice Recognition: List result in ListView
 	public ListView wordsList;	
 	private static final int REQUESTCODE = 1234;
+	
+	private Camera camera = null;
 	
 	
 	/******************************************
@@ -63,9 +71,11 @@ public class MainActivity extends Activity {
 		
 		// start connecting to Server
 		//this.startAsyncTask();
+		
 	}
 	
-	private void init() {		
+	private void init() {	
+		
 		// define Asset Manager		
 		if(assetManager == null)
 			assetManager = this.getAssets();
@@ -82,17 +92,30 @@ public class MainActivity extends Activity {
         	b_voice.setEnabled(false);
         	b_voice.setText("Voice unabled");
         }
+        
+
+		try {
+	        this.camera = Camera.open();
+	        this.camera.lock();
+	    } catch(RuntimeException re) {
+	        Log.e(TAG, "Could not initialize the Camera");
+	        re.printStackTrace();
+	    }
+		
+		VideoView videoView = (VideoView) this.findViewById(R.id.videoView1);
+	    SurfaceHolder holder = videoView.getHolder();
+	    holder.addCallback(this);
 	}
 	
 	private void startAsyncTask() {
 		ConnectionManager conMan = ConnectionManager.getInstance();
 		
 		// If ConnectinManager is not correctly connected to Server, try it
-		//if(conMan.getStatus() != 200)
-		//{
+		if(conMan.getStatus() != 200)
+		{
 			this.asyncTask = new AsyncTaskHandler(this);		
 			this.asyncTask.execute();
-		//}		
+		}		
 	}
 	
 	public void onClick_Listener(View view) { 	
@@ -263,6 +286,34 @@ public class MainActivity extends Activity {
             wordsList.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,matches));
         }
         super.onActivityResult(requestCode, resultCode, data);
-}
-        
+    }
+
+	@Override
+	public void surfaceCreated(SurfaceHolder holder) {
+		try {
+            this.camera.setPreviewDisplay(holder);
+            this.camera.startPreview();
+            
+        } catch(IOException e) {
+            Log.v(TAG, "Could not start the preview");
+            e.printStackTrace();
+        }	
+	}
+
+	@Override
+	public void surfaceChanged(SurfaceHolder holder, int format, int width,
+			int height) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void surfaceDestroyed(SurfaceHolder holder) {
+		//stop the preview  
+        this.camera.stopPreview();  
+        //release the camera  
+        this.camera.release();  
+        //unbind the camera from this object  
+        this.camera = null;		
+	}
 }

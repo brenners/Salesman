@@ -25,6 +25,8 @@ import java.util.Properties;
 
 import org.apache.commons.codec.binary.Base64;
 
+import com.reply.salesmen.control.SettingsManager;
+
 import android.util.Log;
 
 /**
@@ -86,8 +88,13 @@ public class PropertyEntity {
 		switch(this.propertyID) {
 			case "app.properties":
 				this.propAppEntity = new PropertyAppEntity();				
-				// set values of App Property Object
-				this.propAppEntity.setUrl(properties.getProperty("url"));				
+				
+				// get choosen URL
+				SettingsManager sm = SettingsManager.getInstance();
+				String choosenURL = sm.getURL();
+				
+				// set values of App Property Object				
+				this.propAppEntity.setUrl(properties.getProperty(choosenURL));				
 				this.propAppEntity.setAuthorization(Base64.encodeBase64((properties.getProperty("username") + ":" + properties.getProperty("password")).getBytes()));
 				
 			break;

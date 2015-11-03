@@ -11,10 +11,16 @@
 	    android:layout_height="match_parent"
 	    tools:context="${relativePackage}.${activityClass}" > -->
 	
-	<RelativeLayout 
+	<FrameLayout 
 	    android:layout_width="match_parent"
 	    android:layout_height="match_parent">
 	
+	    <VideoView
+         android:id="@+id/videoView1"
+         android:layout_width="wrap_content"
+         android:layout_height="464dp"
+         android:layout_gravity="center" />     
+	    
 	    <Button
 	        android:id="@+id/B_SalesOrder"
 	        android:layout_width="wrap_content"
@@ -91,6 +97,6 @@
 	        android:layout_below="@+id/textView1"
 	        android:text="ScrollView" 
 	        android:onClick="onClick_Listener" />
-	
-	</RelativeLayout>
+		    
+	</FrameLayout>
 </ScrollView>

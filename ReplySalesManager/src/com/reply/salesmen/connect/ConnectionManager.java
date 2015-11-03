@@ -80,6 +80,8 @@ public class ConnectionManager {
 	
 	private int httpStatusCode = 0;
 	
+	public String errorMessage = "";
+	
 	/******************************************
 	 * 				Constructor 			  *
 	 *****************************************/
@@ -127,8 +129,10 @@ public class ConnectionManager {
 			
 		} catch (ConnectException e) {
 			Log.e(logTag, e.toString());
+			this.errorMessage = e.toString();
 		} catch (IOException e) {
-			Log.e(logTag, e.toString());			
+			Log.e(logTag, e.toString());		
+			this.errorMessage = e.toString();
 		} 
 	
 		return false;
