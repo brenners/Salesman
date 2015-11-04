@@ -11,10 +11,26 @@
     android:layout_height="match_parent"
     tools:context="${relativePackage}.${activityClass}" > -->
 	
-	<RelativeLayout 
+	<!--<RelativeLayout 
 	    android:layout_width="match_parent"
     	android:layout_height="match_parent">
-	
+	-->
+	<FrameLayout 
+	    android:layout_width="match_parent"
+	    android:layout_height="fill_parent"
+	    android:layout_gravity="fill_vertical" 
+	    android:background="@android:color/black"
+	    >
+	    
+	    <VideoView
+	        android:id="@+id/videoViewItemView"
+	        android:layout_width="match_parent"
+	        android:layout_height="match_parent"
+	        android:layout_marginTop="0dp"
+	        android:layout_marginBottom="0dp"
+	        android:layout_gravity="fill_vertical"
+	        android:configChanges="orientation|screenSize" />	    	    
+	    
 	    <TextView
 	        android:id="@+id/TV_SI_ObjectID"
 	        android:layout_width="wrap_content"
@@ -30,6 +46,7 @@
 	        android:layout_marginTop="26dp"
 	        android:text="TextView" />
 
-	</RelativeLayout>
+	<!--</RelativeLayout>-->
+	</FrameLayout>
 </ScrollView>
 	

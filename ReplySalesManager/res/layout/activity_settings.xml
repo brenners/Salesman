@@ -14,20 +14,38 @@
 	    android:orientation="horizontal"
 	    tools:context="${relativePackage}.${activityClass}" >-->
 	
-    <GridLayout 
+    <!--<GridLayout 
         android:id="@+id/GridLayout1"
 	    android:layout_width="match_parent"
 	    android:layout_height="match_parent"
 	    android:columnCount="8"
-	    android:orientation="horizontal">
+	    android:orientation="horizontal">-->
 	    
-	    <Space
+   	<FrameLayout 
+	    android:layout_width="match_parent"
+	    android:layout_height="fill_parent"
+	    android:layout_gravity="fill_vertical" 
+	    android:background="@android:color/black"
+	    >
+	    
+   	    <VideoView
+	        android:id="@+id/videoViewSettings"
+	        android:layout_width="match_parent"
+	        android:layout_height="match_parent"
+	        android:layout_marginTop="0dp"
+	        android:layout_marginBottom="0dp"
+	        android:layout_gravity="fill_vertical"
+	        android:configChanges="orientation|screenSize" />	    
+	    
+	    <!--<Space
 	        android:layout_column="3"
 	        android:layout_gravity="fill_vertical"
-	        android:layout_row="13" />
+	        android:layout_row="13" />-->
 	
 	    <TextView
 	        android:id="@+id/textView1"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
 	        android:layout_column="2"
 	        android:layout_gravity="top|fill_horizontal|center"
 	        android:layout_row="1"
@@ -37,6 +55,8 @@
 	    <CheckBox
 	        android:id="@+id/CB_MockData_Al"
 	        android:layout_column="2"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
 	        android:layout_gravity="left|top"
 	        android:layout_marginBottom="76dp"
 	        android:layout_marginLeft="10dp"
@@ -49,6 +69,8 @@
 	    <CheckBox
 	        android:id="@+id/CB_MockData"
 	        android:layout_column="2"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
 	        android:layout_gravity="left|center_vertical"
 	        android:layout_marginLeft="10dp"
 	        android:layout_marginTop="10dp"
@@ -59,11 +81,14 @@
 	    <Switch
 	        android:id="@+id/switchURL"
 	        android:layout_column="2"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
 	        android:layout_gravity="left|bottom"
 	        android:layout_row="4"
 	        android:text="Use Development Connection (URL)" 
 	        android:layout_marginLeft="15dp"
 	        android:layout_marginTop="10dp" />
 	
-	</GridLayout>
+	<!--</GridLayout>-->
+	</FrameLayout>
 </ScrollView>

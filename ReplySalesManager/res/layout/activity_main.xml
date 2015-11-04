@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    tools:context="${relativePackage}.${activityClass}"
+    tools:context="${relativePackage}.${activityClass}"    
     >
 
 	<!-- <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -13,90 +13,100 @@
 	
 	<FrameLayout 
 	    android:layout_width="match_parent"
-	    android:layout_height="match_parent">
+	    android:layout_height="fill_parent"
+	    android:layout_gravity="fill_vertical" 
+	    android:background="@android:color/black"
+	    >
 	
 	    <VideoView
-         android:id="@+id/videoView1"
-         android:layout_width="wrap_content"
-         android:layout_height="464dp"
-         android:layout_gravity="center" />     
+	        android:id="@+id/videoView1"
+	        android:layout_width="match_parent"
+	        android:layout_height="match_parent"
+	        android:layout_marginTop="0dp"
+	        android:layout_marginBottom="0dp"
+	        android:layout_gravity="fill_vertical"
+	        android:configChanges="orientation|screenSize" />
 	    
 	    <Button
 	        android:id="@+id/B_SalesOrder"
-	        android:layout_width="wrap_content"
+	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
-	        android:layout_alignParentLeft="true"
 	        android:layout_marginLeft="35dp"
-	        android:layout_marginTop="43dp"
+	        android:layout_marginRight="35dp"
+	        android:layout_marginTop="30dp"
+	        android:drawableStart="@drawable/salesorder"
 	        android:drawableLeft="@drawable/salesorder"
 	        android:onClick="onClick_Listener"
-	        android:text="SalesOrder" />
+	        android:text="@string/SalesOrder"
+	        android:alpha="90">
+	        <requestFocus /> </Button>
 	
 	    <Button
 	        android:id="@+id/B_Settings"
-	        android:layout_width="wrap_content"
+	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
-	        android:layout_alignLeft="@+id/B_SalesOrder"
-	        android:layout_alignRight="@+id/B_SalesOrder"
-	        android:layout_below="@+id/B_SalesOrder"
-	        android:drawableLeft="@drawable/settings"
+	        android:layout_marginLeft="35dp"
+	        android:layout_marginRight="35dp"
+	        android:layout_marginTop="100dp"
+	        android:alpha="90"	        
 	        android:onClick="onClick_Listener"
-	        android:text="Settings" />
+	        android:text="@string/Settings" />
 	
 	    <Button
 	        android:id="@+id/B_LoadData"
-	        android:layout_width="wrap_content"
+	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
-	        android:layout_alignLeft="@+id/B_Settings"
-	        android:layout_alignRight="@+id/B_Settings"
-	        android:layout_below="@+id/B_Settings"
-	        android:drawableLeft="@drawable/sync"
+	        android:layout_marginLeft="35dp"
+	        android:layout_marginRight="35dp"
+	        android:layout_marginTop="150dp"
+	        android:alpha="90"
 	        android:onClick="onClick_Listener"
-	        android:text="Load Data" />
-	
-	    
-	    
-	    
+	        android:text="@string/LoadData" />
+		
 	    <!-- Test Voice Recognition -->
 	    
 	    <Button
 	        android:id="@+id/B_Voice"
-	        android:layout_width="wrap_content"
+	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
-	        android:layout_alignLeft="@+id/B_LoadData"
-	        android:layout_alignRight="@+id/B_LoadData"
-	        android:layout_below="@+id/B_LoadData"
-	        android:drawableLeft="@drawable/voice"
+	        android:layout_marginLeft="35dp"
+	        android:layout_marginRight="35dp"
+	        android:layout_marginTop="200dp"
+	        android:alpha="90"
 	        android:onClick="onClick_Listener"
-	        android:text="Voice" />
+	        android:text="@string/Voice" />
 	
 	    <ListView
 	        android:id="@+id/L_List"
 	        android:layout_width="fill_parent"
-	        android:layout_height="50dip"
-	        android:layout_alignParentBottom="true"
-	        android:layout_alignParentLeft="true"
-	        android:layout_marginBottom="20dp"
-	        android:layout_weight="1" >
+	        android:layout_height="50dp"
+	        android:layout_marginLeft="35dp"
+	        android:layout_marginRight="35dp"
+	        android:layout_marginTop="240dp"	    
+	        android:alpha="90"> 
 	    </ListView>
+	    <!--android:layout_weight="1" >-->
 	
 	    <TextView
 	        android:id="@+id/textView1"
-	        android:layout_width="wrap_content"
+	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
-	        android:layout_alignLeft="@+id/B_Voice"
-	        android:layout_below="@+id/B_Voice"
-	        android:layout_marginTop="14dp"
-	        android:text="Try Voice Recognition and say: &quot;sales order&quot;" />
+	        android:layout_marginLeft="35dp"
+	        android:layout_marginRight="35dp"
+	        android:layout_marginTop="260dp"
+	        android:alpha="90"
+	        android:text="@string/TryVoice" />
 	
-	    <Button
+	    <!--<Button
 	        android:id="@+id/button1"
-	        android:layout_width="wrap_content"
+	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
-	        android:layout_alignLeft="@+id/textView1"
-	        android:layout_below="@+id/textView1"
-	        android:text="ScrollView" 
-	        android:onClick="onClick_Listener" />
+	        android:layout_marginLeft="35dp"
+	        android:layout_marginRight="35dp"
+	        android:layout_marginTop="300dp"
+	        android:alpha="90"
+	        android:text="@string/ScrollView" 
+	        android:onClick="onClick_Listener" />-->
 		    
 	</FrameLayout>
 </ScrollView>

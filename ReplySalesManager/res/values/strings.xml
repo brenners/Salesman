@@ -15,5 +15,11 @@
     <string name="title_activity_sales_order_view">SalesOrderView</string>
     <string name="title_activity_sales_order_item_view">SalesOrderItemView</string>
     <string name="title_activity_sales_order_item_search_view">SalesOrderItemSearchView</string>
+    <string name="SalesOrder">Sales Order</string>
+    <string name="Settings">Settings</string>
+    <string name="LoadData">LoadData</string>
+    <string name="Voice">Voice</string>
+    <string name="TryVoice">Try Voice Recognition and say: Sales Order</string>
+    <string name="ScrollView">Scroll View</string>
 
 </resources>

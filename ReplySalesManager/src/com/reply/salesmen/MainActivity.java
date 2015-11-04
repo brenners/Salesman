@@ -4,11 +4,27 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 //import com.example.android.camera2raw.tests.R;
 import com.reply.salesmen.connect.ConnectionManager;
 import com.reply.salesmen.control.AsyncTaskHandler;
+import com.reply.salesmen.control.CameraManager;
 import com.reply.salesmen.control.ConstantManager;
 import com.reply.salesmen.control.SettingsManager;
+import com.reply.salesmen.control.Voice.VoiceManager;
+import com.reply.salesmen.control.Voice.VoiceManagerInterface;
 import com.reply.salesmen.view.*;
 
 import android.app.Activity;
@@ -19,14 +35,19 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.content.res.AssetManager;
+import android.graphics.Point;
 import android.hardware.Camera;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
+import android.speech.SpeechRecognizer;
 import android.util.Log;
+import android.view.Display;
+import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 import android.widget.VideoView;
@@ -37,8 +58,6 @@ public class MainActivity extends Activity implements SurfaceHolder.Callback {
 	 * 				Declaration 			  *
 	 *****************************************/
 	
-	private final String TAG = "DebugTag";
-	
 	public static AssetManager assetManager;
 	
 	private AsyncTaskHandler asyncTask;
@@ -47,10 +66,6 @@ public class MainActivity extends Activity implements SurfaceHolder.Callback {
 		
 	// Voice Recognition: List result in ListView
 	public ListView wordsList;	
-	private static final int REQUESTCODE = 1234;
-	
-	private Camera camera = null;
-	
 	
 	/******************************************
 	 * 				Constructor 			  *
@@ -67,18 +82,15 @@ public class MainActivity extends Activity implements SurfaceHolder.Callback {
 		setContentView(R.layout.activity_main);		
 		
 		// Initialize objects and connections
-		init();		
-		
-		// start connecting to Server
-		//this.startAsyncTask();
-		
+		init();	
 	}
 	
 	private void init() {	
 		
 		// define Asset Manager		
-		if(assetManager == null)
+		if(assetManager == null) {
 			assetManager = this.getAssets();
+		}
 		
 		// Test Voice Recognition
 		wordsList = (ListView) findViewById(R.id.L_List);
@@ -93,18 +105,24 @@ public class MainActivity extends Activity implements SurfaceHolder.Callback {
         	b_voice.setText("Voice unabled");
         }
         
-
-		try {
-	        this.camera = Camera.open();
-	        this.camera.lock();
-	    } catch(RuntimeException re) {
-	        Log.e(TAG, "Could not initialize the Camera");
-	        re.printStackTrace();
-	    }
-		
-		VideoView videoView = (VideoView) this.findViewById(R.id.videoView1);
-	    SurfaceHolder holder = videoView.getHolder();
-	    holder.addCallback(this);
+        // Init Camera Manager
+        CameraManager cameraManager = CameraManager.getInstance();
+        
+        if(cameraManager.getStatus().equals("Locked")) {
+        	// Calculate Screen size
+        	Display display = this.getWindowManager().getDefaultDisplay();
+    		Point size = new Point();
+    		display.getSize(size);
+    		int width = size.x;
+    		int height = size.y;
+    		
+    		// Get Video View and define size
+			VideoView videoView = (VideoView) this.findViewById(R.id.videoView1);
+			videoView.setLayoutParams(new FrameLayout.LayoutParams(width,height));
+		    SurfaceHolder holder = videoView.getHolder();		    
+		    holder.addCallback(this);
+		    holder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
+        }
 	}
 	
 	private void startAsyncTask() {
@@ -143,16 +161,13 @@ public class MainActivity extends Activity implements SurfaceHolder.Callback {
 				this.startAsyncTask();
 				sm.setDataLoadCompleted(true);			
 				break;
-			case (R.id.B_Voice):
-				startVoiceRecognitionActivity();
-				
-				/*VoiceManager voice = new VoiceManager(MainActivity.this);
-				if(voice != null)
-					voice.startVoiceRecognitionActivity();*/
+			case (R.id.B_Voice):				
+				VoiceManager voice = VoiceManager.getInstance(this);				
+				voice.start();
 				break;
-			case (R.id.button1):
+			/*case (R.id.button1):
 				navigate2Intent(SalesOrderItemSearchView.class);
-				break;
+				break;*/
 		}
 	}
 	
@@ -256,64 +271,63 @@ public class MainActivity extends Activity implements SurfaceHolder.Callback {
 	     .show();
 	}
 	
-	
-	
-	/**
-     * Fire an intent to start the voice recognition activity.
-     */
-    public void startVoiceRecognitionActivity()
-    {
-        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Voice recognition ...");
-        startActivityForResult(intent, REQUESTCODE);
-    }
-	
     /**
      * Handle the results from the voice recognition activity.
      */
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data)
-    {
-        if (requestCode == REQUESTCODE && resultCode == RESULT_OK)
-        {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == VoiceManagerInterface.REQUESTCODE+1 && resultCode == RESULT_OK) {
             // Populate the wordsList with the String values the recognition engine thought it heard
             ArrayList <String> matches = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);  
-            /* Test Recognition: if possible navigate to Sales Order view*/
+            /* Test Voice Recognition: if possible navigate to Sales Order view*/
             if(matches.get(0).equals("sales order")) {
             	navigate2Intent(SalesOrderView.class);
             }
-            wordsList.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,matches));
+            wordsList.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,matches));           
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
 
 	@Override
-	public void surfaceCreated(SurfaceHolder holder) {
-		try {
-            this.camera.setPreviewDisplay(holder);
-            this.camera.startPreview();
-            
-        } catch(IOException e) {
-            Log.v(TAG, "Could not start the preview");
-            e.printStackTrace();
-        }	
+	public void surfaceCreated(SurfaceHolder holder) {		
+		CameraManager cameraManager = CameraManager.getInstance();
+        
+        if(cameraManager.getStatus().equals("Locked")) {
+        	//cameraManager.setPreviewDisplay(holder);
+        } 
 	}
-
+	
 	@Override
-	public void surfaceChanged(SurfaceHolder holder, int format, int width,
-			int height) {
-		// TODO Auto-generated method stub
-		
+	public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) { 
+		CameraManager cameraManager = CameraManager.getInstance();
+        
+        if(cameraManager.getStatus().equals("Locked")) {
+        	cameraManager.setPreviewDisplay(holder);
+        	cameraManager.rotateCamera(this);
+        }
 	}
-
+	
 	@Override
 	public void surfaceDestroyed(SurfaceHolder holder) {
-		//stop the preview  
-        this.camera.stopPreview();  
-        //release the camera  
-        this.camera.release();  
-        //unbind the camera from this object  
-        this.camera = null;		
+		
+		/*CameraManager cameraManager = CameraManager.getInstance();
+		if(cameraManager.getStatus().equals("Locked")) {
+        	cameraManager.stopCamera(this);
+        }		
+		
+		VoiceManager voice = VoiceManager.getInstance(this);				
+		voice.stop();*/
+	}
+	
+	@Override
+	protected void onDestroy() {
+		CameraManager cameraManager = CameraManager.getInstance();
+		if(cameraManager.getStatus().equals("Locked")) {
+        	cameraManager.stopCamera(this);
+        }		
+		
+		VoiceManager voice = VoiceManager.getInstance(this);				
+		voice.stop();
+		super.onDestroy();
 	}
 }

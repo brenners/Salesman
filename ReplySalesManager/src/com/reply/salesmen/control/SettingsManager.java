@@ -19,6 +19,7 @@
  */
 package com.reply.salesmen.control;
 
+import android.graphics.YuvImage;
 import android.webkit.WebView.FindListener;
 
 /**
@@ -42,6 +43,8 @@ public class SettingsManager {
 	
 	private int currentObjectId;
 	
+	private String currentDevice;
+
 	/******************************************
 	 * 				Constructor 			  *
 	 *****************************************/
@@ -134,5 +137,20 @@ public class SettingsManager {
 		URL = newURL;
 	}
 
-	
+	public String getCurrentDevice() {
+		/* Possible parameters
+		 * 
+		    android.os.Build.VERSION.SDK      // API Level
+			android.os.Build.DEVICE           // Device
+			android.os.Build.MODEL            // Model 
+			android.os.Build.PRODUCT          // Product
+		 *
+		 *  */
+		String myDeviceModel = android.os.Build.MODEL;	
+		String myDeviceManufacturer = android.os.Build.MANUFACTURER;
+		
+		currentDevice = myDeviceManufacturer + " " + myDeviceModel; 
+		
+		return currentDevice;
+	}
 }
