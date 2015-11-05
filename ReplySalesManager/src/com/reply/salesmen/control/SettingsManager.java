@@ -39,7 +39,7 @@ public class SettingsManager {
 	private boolean useMockData;	
 	private boolean useMockDataGenerally;
 	
-	private String URL;
+	private String URL = "";
 	
 	private int currentObjectId;
 	
@@ -135,7 +135,7 @@ public class SettingsManager {
 	 */
 	public void setURL(String newURL) {
 		URL = newURL;
-	}
+	}	
 
 	public String getCurrentDevice() {
 		/* Possible parameters

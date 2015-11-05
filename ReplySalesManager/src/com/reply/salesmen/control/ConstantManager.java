@@ -59,4 +59,7 @@ public class ConstantManager {
 	// DebugTag
 	public static final String CONSOLE_TAG = "ReplySalesManager";
 	
+	// URL 
+	public static final String URL_DEV = "url_develop";
+	public static final String URL_TEST = "url_test";
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.reply.salesmen.R;
 import com.reply.salesmen.control.CameraManager;
+import com.reply.salesmen.control.ConstantManager;
 import com.reply.salesmen.control.SettingsManager;
 import com.reply.salesmen.control.Voice.VoiceManager;
 import com.reply.salesmen.model.CollectionWrapper;
@@ -14,6 +15,7 @@ import com.reply.salesmen.model.elements.SalesOrderItem;
 import android.app.Activity;
 import android.graphics.Point;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -35,9 +37,18 @@ public class SalesOrderItemView extends Activity implements SurfaceHolder.Callba
 	
 	private void init() {
 		// Init Camera Manager
-        CameraManager cameraManager = CameraManager.getInstance();
+        CameraManager cameraManager = CameraManager.getInstance(this);
         
         if(cameraManager.getStatus().equals("Locked")) {
+
+        	SettingsManager sm = SettingsManager.getInstance();
+			String deviceName = sm.getCurrentDevice();
+			
+			if(deviceName.equals("Vuzix M100")) {
+				// Special handling for Vuzix
+				cameraManager.stopCamera(this);
+			}
+        	
         	// Calculate Screen size
         	Display display = this.getWindowManager().getDefaultDisplay();
     		Point size = new Point();
@@ -57,21 +68,29 @@ public class SalesOrderItemView extends Activity implements SurfaceHolder.Callba
 	private void displayItem() {
 		// Get current Object
 		CollectionWrapper colWrap = CollectionWrapper.getInstance();
-		SalesOrder so = colWrap.getSalesOrderSet().getCurrent();
 		
-		if(so == null)
-			return;
-		
-		Object o = so.getDependentItems();
-		if( o == null)
-			return;
+		// Catch exception when no object is available and afterwards, show empty item page
+		try {
+			SalesOrder so = colWrap.getSalesOrderSet().getCurrent();
 			
-		SalesOrderItemSet si_set = new SalesOrderItemSet((ArrayList<SalesOrderItem>) o); 
+			if(so != null) {				
+				Object o = so.getDependentItems();
+				
+				if( o != null) {
+				 SalesOrderItemSet si_set = new SalesOrderItemSet((ArrayList<SalesOrderItem>) o); 
+				 
+				 if(si_set != null) {			
+					 setObject2View(si_set.getFirst(), false);
+				 }
+				}
+			}
+		} catch(RuntimeException e) {
+			Log.e(ConstantManager.CONSOLE_TAG, e.toString());			
+		} catch(Exception e) {
+			Log.e(ConstantManager.CONSOLE_TAG, e.toString());
+		}
 		
-		if(si_set == null)
-			return;
 		
-		setObject2View(si_set.getFirst(), false);
 	}
 	
 	private void setObject2View(SalesOrderItem si, boolean editable) {
@@ -81,17 +100,25 @@ public class SalesOrderItemView extends Activity implements SurfaceHolder.Callba
 	
 		TextView t_NumberInt = (TextView) findViewById(R.id.TV_NumberInt);
 		t_NumberInt.setText(""+si.getNumberInt());
+		
+		TextView t_desc = (TextView) findViewById(R.id.TV_Description);
+		t_desc.setText(""+si.getDescription());
+		
+		TextView t_prodID = (TextView) findViewById(R.id.TV_ProductID);
+		t_prodID.setText(""+si.getProductId());
+		
+		TextView t_quant = (TextView) findViewById(R.id.TV_Quantity);
+		t_quant.setText(""+si.getQuantity());		
 	}
 
 	@Override
 	public void surfaceCreated(SurfaceHolder holder) {
-		// TODO Auto-generated method stub
-		
+				
 	}
 
 	@Override
 	public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-		CameraManager cameraManager = CameraManager.getInstance();
+		CameraManager cameraManager = CameraManager.getInstance(this);
         
         if(cameraManager.getStatus().equals("Locked")) {
         	cameraManager.setPreviewDisplay(holder);
@@ -104,21 +131,9 @@ public class SalesOrderItemView extends Activity implements SurfaceHolder.Callba
 		
 	}
 	
-	/*@Override
-	protected void onDestroy() {
-		CameraManager cameraManager = CameraManager.getInstance();
-		if(cameraManager.getStatus().equals("Locked")) {
-        	cameraManager.stopCamera(this);
-        }		
-		
-		VoiceManager voice = VoiceManager.getInstance(this);				
-		voice.stop();
-		super.onDestroy();
-	}*/
-	
 	@Override
 	public void onBackPressed() {
-		CameraManager cameraManager = CameraManager.getInstance();
+		CameraManager cameraManager = CameraManager.getInstance(this);
 		if(cameraManager.getStatus().equals("Locked")) {
         	cameraManager.stopCamera(this);
         }		

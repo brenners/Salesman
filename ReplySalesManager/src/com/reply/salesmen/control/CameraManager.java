@@ -12,23 +12,24 @@ public class CameraManager {
 	
 	private static CameraManager cameraManager;
 	private static Camera camera = null;
-	private static String status;
+	private static String status = "";
+	private Activity currActivity = null;
 	
-	private CameraManager() {
-		init();
+	private CameraManager(Activity act) {
+		init(act);
 	}
 	
-	public static CameraManager getInstance() {
+	public static CameraManager getInstance(Activity act) {
 		if(cameraManager == null) {
-			cameraManager = new CameraManager();
+			cameraManager = new CameraManager(act);
 		} else if(camera == null) {
-			init();
+			init(act);
 		}
 		
 		return cameraManager;	
 	}
 	
-	private static void init() {		
+	private static void init(Activity act) {		
 		try {
 	        camera = Camera.open();
 	        camera.lock();
@@ -41,60 +42,59 @@ public class CameraManager {
 	    }
 	}
 	
-	public Camera getCamera() {
+	public Camera getCamera(Activity act) {
 		if(camera == null) {
-			init();
+			init(act);
 		}		
 		return camera;
 	}
 	
 	public void rotateCamera(Activity activity) {
-	    android.hardware.Camera.CameraInfo info = new android.hardware.Camera.CameraInfo();
-	    
-		// Choose Camera Orientation based on current used Device		
+
+		int factor = 90;
+		
 		SettingsManager sm = SettingsManager.getInstance();
 		String deviceName = sm.getCurrentDevice();
-	    
-		int factor = 0;	    
+		
 		if(deviceName.equals("Vuzix M100")) {
-			factor = 90;
-		}
+			// Special handling for Vuzix
+			factor = 0;
+		}			   
 		
 		int degrees = 0;	    
 		int rotation = activity.getWindowManager().getDefaultDisplay().getRotation();
-		
+
+		// ROTATION ==> Factor = 90, as Smartphone default orientation is 90°		
 		switch (rotation) {
 		case Surface.ROTATION_0: 
-			// ROTATION_0 ==> Degrees = 270 and not 0, as Smartphone default orientation is 270°
-			degrees = 270 + factor;
+			degrees = 0;
 	        break;
 	    case Surface.ROTATION_90: 
-	    	degrees = 180 + factor; 
+	    	degrees = 90;
 	    	break;
 	    case Surface.ROTATION_180: 
-	    	degrees = 90 + factor; 
+	    	degrees = 180; 
 	    	break;
 	    case Surface.ROTATION_270: 
-	    	degrees = 0 + factor; 
+	    	degrees = 270;
 	    	break;
 		}
-        int result = (info.orientation - degrees + 360) % 360;
+        int result = (factor - degrees + 360) % 360;
         camera.setDisplayOrientation(result);
 	}
 	
 	public void stopCamera(Activity activity) {		
-		//stop the preview  
-        /*camera.stopPreview();  
-        //release the camera  
-        camera.release();  
-        //unbind the camera from this object  
-        camera = null;*/
-        
-        camera.stopPreview();
-        camera.setPreviewCallback(null);
-        camera.lock();
-        camera.release();
-        camera=null;
+		if(camera != null) { 
+			//stop the preview  
+	        camera.stopPreview();  
+	        camera.setPreviewCallback(null);
+	        // unlock camera, so other applications can use camera
+	        camera.unlock();
+	        //release the camera  
+	        camera.release();	        
+	        //unbind the camera from this object  
+	        camera = null;
+		}
 	}
 	
 	public void setPreviewDisplay(SurfaceHolder holder) {

@@ -36,59 +36,101 @@
 	        android:layout_marginBottom="0dp"
 	        android:layout_gravity="fill_vertical"
 	        android:configChanges="orientation|screenSize" />	    
-	    
-	    <!--<Space
-	        android:layout_column="3"
-	        android:layout_gravity="fill_vertical"
-	        android:layout_row="13" />-->
-	
-	    <TextView
-	        android:id="@+id/textView1"
-	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-	        android:layout_column="2"
-	        android:layout_gravity="top|fill_horizontal|center"
-	        android:layout_row="1"
-	        android:text="Settings"
-	        android:textSize="@android:dimen/app_icon_size" />
-	
-	    <CheckBox
-	        android:id="@+id/CB_MockData_Al"
-	        android:layout_column="2"
-	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-	        android:layout_gravity="left|top"
-	        android:layout_marginBottom="76dp"
-	        android:layout_marginLeft="10dp"
-	        android:layout_marginTop="10dp"
-	        android:layout_row="4"
-	        android:checked="true"
-	        android:onClick="onClick_Listener"
-	        android:text="Use Mock Data always" />
-	
-	    <CheckBox
-	        android:id="@+id/CB_MockData"
-	        android:layout_column="2"
-	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-	        android:layout_gravity="left|center_vertical"
-	        android:layout_marginLeft="10dp"
-	        android:layout_marginTop="10dp"
-	        android:layout_row="4"
-	        android:text="Use Mock Data" 
-	        android:onClick="onClick_Listener" />
-
-	    <Switch
-	        android:id="@+id/switchURL"
-	        android:layout_column="2"
-	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-	        android:layout_gravity="left|bottom"
-	        android:layout_row="4"
-	        android:text="Use Development Connection (URL)" 
-	        android:layout_marginLeft="15dp"
-	        android:layout_marginTop="10dp" />
-	
-	<!--</GridLayout>-->
+		
+	    <!-- Content -->
+		<FrameLayout 
+		    android:layout_marginTop="20dp"
+		    android:layout_marginLeft="20dp"
+		    android:layout_marginStart="20dp"
+		    android:layout_marginRight="20dp"
+		    android:layout_marginEnd="20dp"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_gravity="center|center" >
+  	        
+			<FrameLayout 
+			    android:layout_width="fill_parent"
+			    android:layout_height="5dp"
+			    android:layout_gravity="top" 
+			    android:alpha="1"
+			    android:background="@android:color/holo_green_dark" >
+		    </FrameLayout>    
+	        
+		    <FrameLayout
+		        android:layout_width="fill_parent"
+		        android:layout_height="fill_parent"
+		        android:layout_marginTop="5dp"
+		        android:background="@android:color/background_light"
+		        android:alpha="0.70" >
+			        
+		        <TextView
+			        android:id="@+id/textView1"
+			        android:layout_width="match_parent"
+			        android:layout_height="wrap_content"
+			        android:layout_gravity="top|fill_horizontal|center"			        
+			        android:text="@string/Settings"
+			        android:textSize="@android:dimen/app_icon_size"
+			        android:layout_marginStart="5dp"
+			        android:layout_marginLeft="5dp"
+			        android:layout_marginTop="2dp" />
+			
+				<TextView
+			        android:id="@+id/CB_MockData_Al_Label"
+			        android:layout_width="fill_parent"
+			        android:layout_height="wrap_content"
+			        android:layout_marginLeft="45dp"
+			        android:layout_marginRight="45dp"
+			        android:layout_marginTop="75dp"
+			        android:text="@string/UseMockAlways" />
+				
+			    <CheckBox
+			        android:id="@+id/CB_MockData_Al"
+			        android:layout_width="match_parent"
+			        android:layout_height="wrap_content"
+			        android:layout_marginLeft="5dp"
+			        android:layout_marginStart="5dp"
+			        android:layout_marginTop="60dp"
+			        android:onClick="onClick_Listener"			        
+			        android:visibility="visible" >
+			        <requestFocus /> </CheckBox>
+				
+			    <TextView
+			        android:id="@+id/CB_MockData_Label"
+			        android:layout_width="fill_parent"
+			        android:layout_height="wrap_content"
+			        android:layout_marginLeft="45dp"
+			        android:layout_marginRight="45dp"
+			        android:layout_marginTop="115dp"
+			        android:text="@string/UseMock" />
+			    
+			    <CheckBox
+			        android:id="@+id/CB_MockData"
+			        android:layout_width="match_parent"
+			        android:layout_height="wrap_content"
+			        android:layout_marginLeft="5dp"
+			        android:layout_marginStart="5dp"
+			        android:layout_marginTop="100dp"
+			        android:onClick="onClick_Listener"			        
+			        android:visibility="visible" />
+				
+				<TextView
+			        android:id="@+id/CB_SwitchURL_Label"
+			        android:layout_width="fill_parent"
+			        android:layout_height="wrap_content"
+			        android:layout_marginLeft="45dp"
+			        android:layout_marginRight="45dp"
+			        android:layout_marginTop="155dp"
+					android:text="@string/UseDevCon" />
+			    			    
+			    <CheckBox
+			        android:id="@+id/CB_SwitchURL"
+			        android:layout_width="match_parent"
+			        android:layout_height="wrap_content"
+			        android:layout_marginStart="5dp"
+			        android:layout_marginLeft="5dp"
+			        android:layout_marginTop="140dp"
+			        android:onClick="onClick_Listener" />
+		  </FrameLayout>      
+    	</FrameLayout>
 	</FrameLayout>
 </ScrollView>

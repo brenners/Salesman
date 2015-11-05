@@ -106,7 +106,7 @@ public class MainActivity extends Activity implements SurfaceHolder.Callback {
         }
         
         // Init Camera Manager
-        CameraManager cameraManager = CameraManager.getInstance();
+        CameraManager cameraManager = CameraManager.getInstance(this);
         
         if(cameraManager.getStatus().equals("Locked")) {
         	// Calculate Screen size
@@ -143,21 +143,20 @@ public class MainActivity extends Activity implements SurfaceHolder.Callback {
 		switch(view.getId()) {
 			case (R.id.B_SalesOrder):
 				if(sm.isDataLoadCompleted())					
-					navigate2Intent(SalesOrderView.class);
+					navigate2Intent(SalesOrderView.class);			
 				else {
 					String title = "No Data is loaded:";
 					String msg = "Do you want to load Mock Data first?: ";
 					String posButtonTitle = ConstantManager.GO_ON_WITHOUT_LOADING;
-					String negButtonTitle = ConstantManager.RETRY_CONNECTION;
-									
+					String negButtonTitle = ConstantManager.RETRY_CONNECTION;									
 					showAlertDialog(title, msg, posButtonTitle, negButtonTitle);					
-				}				
+				}
 				break;
 			case (R.id.B_Settings):
 				navigate2Intent(SettingsView.class);					
 				break;
 			case (R.id.B_LoadData):
-				// start connecting to Server
+				// start asynchron task for connecting to Server
 				this.startAsyncTask();
 				sm.setDataLoadCompleted(true);			
 				break;
@@ -165,9 +164,6 @@ public class MainActivity extends Activity implements SurfaceHolder.Callback {
 				VoiceManager voice = VoiceManager.getInstance(this);				
 				voice.start();
 				break;
-			/*case (R.id.button1):
-				navigate2Intent(SalesOrderItemSearchView.class);
-				break;*/
 		}
 	}
 	
@@ -263,7 +259,8 @@ public class MainActivity extends Activity implements SurfaceHolder.Callback {
 	        	if(negButtonTitle.equals(ConstantManager.RETRY_CONNECTION)) {
 	        		SettingsManager sm = SettingsManager.getInstance();
 	        		sm.setDataLoadCompleted(true);
-	        		startAsyncTask();	        		
+	        		startAsyncTask();
+	        		navigate2Intent(SalesOrderView.class);
 	        	}	        		
 	        }
 	     })
@@ -279,27 +276,19 @@ public class MainActivity extends Activity implements SurfaceHolder.Callback {
         if (requestCode == VoiceManagerInterface.REQUESTCODE+1 && resultCode == RESULT_OK) {
             // Populate the wordsList with the String values the recognition engine thought it heard
             ArrayList <String> matches = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);  
-            /* Test Voice Recognition: if possible navigate to Sales Order view*/
-            if(matches.get(0).equals("sales order")) {
-            	navigate2Intent(SalesOrderView.class);
-            }
-            wordsList.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,matches));           
+            this.navigateByVoice(matches);
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
 
 	@Override
 	public void surfaceCreated(SurfaceHolder holder) {		
-		CameraManager cameraManager = CameraManager.getInstance();
-        
-        if(cameraManager.getStatus().equals("Locked")) {
-        	//cameraManager.setPreviewDisplay(holder);
-        } 
+		
 	}
 	
 	@Override
 	public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) { 
-		CameraManager cameraManager = CameraManager.getInstance();
+		CameraManager cameraManager = CameraManager.getInstance(this);
         
         if(cameraManager.getStatus().equals("Locked")) {
         	cameraManager.setPreviewDisplay(holder);
@@ -310,18 +299,11 @@ public class MainActivity extends Activity implements SurfaceHolder.Callback {
 	@Override
 	public void surfaceDestroyed(SurfaceHolder holder) {
 		
-		/*CameraManager cameraManager = CameraManager.getInstance();
-		if(cameraManager.getStatus().equals("Locked")) {
-        	cameraManager.stopCamera(this);
-        }		
-		
-		VoiceManager voice = VoiceManager.getInstance(this);				
-		voice.stop();*/
 	}
 	
 	@Override
 	protected void onDestroy() {
-		CameraManager cameraManager = CameraManager.getInstance();
+		CameraManager cameraManager = CameraManager.getInstance(this);
 		if(cameraManager.getStatus().equals("Locked")) {
         	cameraManager.stopCamera(this);
         }		
@@ -330,4 +312,39 @@ public class MainActivity extends Activity implements SurfaceHolder.Callback {
 		voice.stop();
 		super.onDestroy();
 	}
+	
+	private void navigateByVoice(ArrayList<String> matches) {		
+		
+		boolean found = false;
+		
+		for (String match : matches) {
+			switch(match) {
+			case "sales order":
+			case "order":
+				navigate2Intent(SalesOrderView.class);
+				found = true;
+				break;	// leave switch
+			case "settings":
+			case "setting":
+				navigate2Intent(SettingsView.class);
+				found = true;
+				break;	// leave switch
+			case "load":
+			case "load data":
+			case "data":
+				// start connecting to Server
+				this.startAsyncTask();
+				SettingsManager sm = SettingsManager.getInstance();
+				sm.setDataLoadCompleted(true);
+				found = true;
+				break;	// leave switch
+			}
+			
+			if(found)
+				break;	// leave for loop
+		}
+		
+        wordsList.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, matches));		
+	}
+	
 }

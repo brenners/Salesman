@@ -43,9 +43,18 @@ public class SalesOrderView extends Activity implements SurfaceHolder.Callback {
 	
 	private void init() {
 		// Init Camera Manager
-        CameraManager cameraManager = CameraManager.getInstance();
+        CameraManager cameraManager = CameraManager.getInstance(this);
         
         if(cameraManager.getStatus().equals("Locked")) {
+        	
+        	SettingsManager sm = SettingsManager.getInstance();
+			String deviceName = sm.getCurrentDevice();
+			
+			if(deviceName.equals("Vuzix M100")) {
+				// Special handling for Vuzix
+				cameraManager.stopCamera(this);
+			}
+        	
         	// Calculate Screen size
         	Display display = this.getWindowManager().getDefaultDisplay();
     		Point size = new Point();
@@ -141,7 +150,7 @@ public class SalesOrderView extends Activity implements SurfaceHolder.Callback {
 
 	@Override
 	public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-		CameraManager cameraManager = CameraManager.getInstance();
+		CameraManager cameraManager = CameraManager.getInstance(this);
         
         if(cameraManager.getStatus().equals("Locked")) {
         	cameraManager.setPreviewDisplay(holder);
@@ -168,7 +177,7 @@ public class SalesOrderView extends Activity implements SurfaceHolder.Callback {
 	
 	@Override
 	public void onBackPressed() {
-		CameraManager cameraManager = CameraManager.getInstance();
+		CameraManager cameraManager = CameraManager.getInstance(this);
 		if(cameraManager.getStatus().equals("Locked")) {
         	cameraManager.stopCamera(this);
         }		

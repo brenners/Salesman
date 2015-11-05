@@ -1,52 +1,110 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    tools:context="${relativePackage}.${activityClass}"
-    >
+<FrameLayout 
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+   	android:layout_width="match_parent"
+   	android:layout_height="fill_parent"
+   	android:layout_gravity="fill_vertical"
+   	android:background="@android:color/black"
+   	tools:context="${relativePackage}.${activityClass}">
+		    
+    <VideoView
+        android:id="@+id/videoViewItemView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="0dp"
+        android:layout_marginBottom="0dp"
+        android:layout_gravity="fill_vertical"
+        android:configChanges="orientation|screenSize" />	    	    
     
-    <!-- <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="${relativePackage}.${activityClass}" > -->
-	
-	<!--<RelativeLayout 
-	    android:layout_width="match_parent"
-    	android:layout_height="match_parent">
-	-->
+    <!-- Content -->
 	<FrameLayout 
-	    android:layout_width="match_parent"
-	    android:layout_height="fill_parent"
-	    android:layout_gravity="fill_vertical" 
-	    android:background="@android:color/black"
-	    >
-	    
-	    <VideoView
-	        android:id="@+id/videoViewItemView"
-	        android:layout_width="match_parent"
-	        android:layout_height="match_parent"
-	        android:layout_marginTop="0dp"
-	        android:layout_marginBottom="0dp"
-	        android:layout_gravity="fill_vertical"
-	        android:configChanges="orientation|screenSize" />	    	    
-	    
-	    <TextView
-	        android:id="@+id/TV_SI_ObjectID"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:text="@string/hello_world" />
-	
-	    <TextView
-	        android:id="@+id/TV_NumberInt"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_alignParentLeft="true"
-	        android:layout_below="@+id/TV_ObjectID"
-	        android:layout_marginTop="26dp"
-	        android:text="TextView" />
+	    android:layout_marginTop="20dp"		    
+	    android:layout_marginBottom="20dp"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_marginLeft="20dp"
+	    android:layout_marginStart="20dp"
+	    android:layout_marginRight="20dp"
+	    android:layout_marginEnd="20dp"
+	    android:layout_gravity="center|center" 
+	    android:background="@android:color/background_light" >
+         
+	    <!-- Header -->
+	    <FrameLayout 
+		    android:layout_width="fill_parent"
+		    android:layout_height="5dp"
+		    android:layout_gravity="top" 
+		    android:alpha="1"
+		    android:background="@android:color/holo_green_dark" >
+	    </FrameLayout>
 
-	<!--</RelativeLayout>-->
-	</FrameLayout>
-</ScrollView>
-	
+		<!-- Buttons Toolbar -->
+	    <FrameLayout
+	        android:layout_width="fill_parent"
+		    android:layout_height="wrap_content"
+		    android:layout_marginTop="5dp"
+		    android:layout_gravity="top" 
+		    android:alpha="0.70"
+		    android:background="@android:color/background_light" >			   
+	    </FrameLayout>
+    	
+	    <!-- Fields -->
+    	<FrameLayout
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_marginTop="35.55dp"
+	        android:layout_gravity="center" >
+     	  		    
+  		    <ScrollView
+			  	android:layout_width="fill_parent"
+			   	android:layout_height="wrap_content" >
+	    		   		  		        
+				<FrameLayout
+				    android:background="@android:color/background_light"
+        			android:alpha="0.70" 
+  			    	android:layout_marginTop="5dp"
+				    android:layout_gravity="center"
+				    android:layout_width="wrap_content"
+				    android:layout_height="wrap_content">
+				    
+		    		<TextView
+				        android:id="@+id/TV_SI_ObjectID"
+				        android:layout_width="wrap_content"
+				        android:layout_height="wrap_content"
+				        android:layout_marginTop="0dp"
+				        android:text="@string/ObjectID" >
+					<requestFocus /> </TextView>
+				
+				    <TextView
+				        android:id="@+id/TV_NumberInt"
+				        android:layout_width="wrap_content"
+				        android:layout_height="wrap_content"
+				        android:layout_marginTop="40dp"
+				        android:text="@string/Number" />
+			    
+				    <TextView
+				        android:id="@+id/TV_Description"
+				        android:layout_width="wrap_content"
+				        android:layout_height="wrap_content"
+				        android:layout_marginTop="80dp"
+				        android:text="@string/Description" />
+				    
+				    <TextView
+				        android:id="@+id/TV_ProductID"
+				        android:layout_width="wrap_content"
+				        android:layout_height="wrap_content"
+				        android:layout_marginTop="120dp"
+				        android:text="@string/ProductID" />
+				    
+				    <TextView
+				        android:id="@+id/TV_Quantity"
+				        android:layout_width="wrap_content"
+				        android:layout_height="wrap_content"
+				        android:layout_marginTop="160dp"
+				        android:text="@string/Quantity" />
+			    
+			    </FrameLayout>
+		    </ScrollView>
+		</FrameLayout>
+	</FrameLayout>	
+</FrameLayout>

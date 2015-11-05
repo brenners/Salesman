@@ -21,5 +21,20 @@
     <string name="Voice">Voice</string>
     <string name="TryVoice">Try Voice Recognition and say: Sales Order</string>
     <string name="ScrollView">Scroll View</string>
+    <string name="UseMockAlways">Use Mock Data always</string>
+    <string name="UseMock">Use Mock Data</string>
+    <string name="UseDevCon">Use Development Connection (URL)</string>
+    <string name="Company">Company</string>
+    <string name="Next">Next</string>
+    <string name="Prev">Previous</string>
+    <string name="PrevShort">Prev</string>
+    <string name="Item">Item</string>
+    <string name="General">General</string>
+    <string name="Customer">Customer</string>
+    <string name="Number">Number</string>
+    <string name="ObjectID">Object ID</string>
+    <string name="Description">Description</string>
+    <string name="Quantity">Quantity</string>
+    <string name="ProductID">Product ID</string>
 
 </resources>
