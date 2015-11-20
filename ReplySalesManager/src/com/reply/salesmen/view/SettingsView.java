@@ -81,9 +81,7 @@ public class SettingsView extends Activity implements SurfaceHolder.Callback  {
 			cb.setChecked(true);
 		} else {
 			cb.setChecked(false);
-		}
-		
-		
+		}		
 	}
 	
 	private void initCamera() {
