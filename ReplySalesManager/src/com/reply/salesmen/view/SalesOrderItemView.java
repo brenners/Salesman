@@ -102,7 +102,7 @@ public class SalesOrderItemView extends Activity implements SurfaceHolder.Callba
 		t_NumberInt.setText(""+si.getNumberInt());
 		
 		TextView t_desc = (TextView) findViewById(R.id.TV_Description);
-		t_desc.setText(""+si.getDescription());
+		t_desc.setText(""+si.getProdDescription());
 		
 		TextView t_prodID = (TextView) findViewById(R.id.TV_ProductID);
 		t_prodID.setText(""+si.getProductId());

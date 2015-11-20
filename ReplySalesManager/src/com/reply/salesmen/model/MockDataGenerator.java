@@ -190,7 +190,7 @@ public class MockDataGenerator {
 		for(int i = 0; i < this.gv_entries; i++) {			
 			SalesOrderItem lv_sales_order_item = new SalesOrderItem();			
 			lv_sales_order_item.setObjectId(this.ga_sales_orders_id.get(i));
-			lv_sales_order_item.setDescription(this.ga_sales_orders_desc.get(i));
+			lv_sales_order_item.setProdDescription(this.ga_sales_orders_desc.get(i));
 			lv_sales_order_item.setNumberInt(10);
 			
 			this.gv_colWrap.addObjectToSet(lv_sales_order_item, ConstantManager.SETNAME_SALESORDERITEM);

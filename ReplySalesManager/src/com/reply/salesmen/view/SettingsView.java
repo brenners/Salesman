@@ -43,7 +43,7 @@ public class SettingsView extends Activity implements SurfaceHolder.Callback  {
 	}
 	
 	private void initCheckBoxes() {
-		initCBSwitchURLButton();		
+		initCBSwitchURLButton();
 		initUseMockUpButtons();
 	}
 	
