@@ -163,9 +163,9 @@ public class SalesOrderView extends Activity implements SurfaceHolder.Callback {
 		
 	}
 	
-	/*@Override
+	@Override
 	protected void onDestroy() {
-		CameraManager cameraManager = CameraManager.getInstance();
+		CameraManager cameraManager = CameraManager.getInstance(this);
 		if(cameraManager.getStatus().equals("Locked")) {
         	cameraManager.stopCamera(this);
         }		
@@ -173,7 +173,7 @@ public class SalesOrderView extends Activity implements SurfaceHolder.Callback {
 		VoiceManager voice = VoiceManager.getInstance(this);				
 		voice.stop();
 		super.onDestroy();
-	}*/
+	}
 	
 	@Override
 	public void onBackPressed() {

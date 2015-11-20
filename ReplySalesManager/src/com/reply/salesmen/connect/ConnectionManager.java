@@ -122,9 +122,11 @@ public class ConnectionManager {
 		Parser parser = new Parser();		
 
 		try {
-			InputStream content = execute(propAppEntity.getUrl() + set + SEPARATOR, APPLICATION_JSON, HTTP_METHOD_GET, propAppEntity);	
+			// consume data from oData Service 
+			String url_str = propAppEntity.getUrl() + set + SEPARATOR;
+			InputStream content = execute(url_str, APPLICATION_JSON, HTTP_METHOD_GET, propAppEntity);	
 			parser.parse(content, set);
-			
+		
 			return true;
 			
 		} catch (ConnectException e) {
@@ -147,11 +149,15 @@ public class ConnectionManager {
 		Log.i(logTag, "Connect");
 		
 		// Check Status of Response
-		checkStatus(connection);   
-		// Get content
-		InputStream content = connection.getInputStream();
-
-		return content;
+		HttpStatusCodes code = checkStatus(connection);
+		
+		if(code == HttpStatusCodes.OK) {
+			// Get content
+			InputStream content = connection.getInputStream();		
+			return content;
+		} else {
+			throw new ConnectException("Error: Http Status Code " + code);
+		}			
 	}
 	
 	private HttpURLConnection initializeConnection(String absoluteUri, String contentType, String httpMethod, PropertyAppEntity propAppEntity) throws IOException {

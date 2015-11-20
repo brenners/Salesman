@@ -94,7 +94,8 @@ public class PropertyEntity {
 				String choosenURL = sm.getURL();
 				
 				// set values of App Property Object				
-				this.propAppEntity.setUrl(properties.getProperty(choosenURL));				
+				this.propAppEntity.setUrl(properties.getProperty(choosenURL));
+				
 				this.propAppEntity.setAuthorization(Base64.encodeBase64((properties.getProperty("username") + ":" + properties.getProperty("password")).getBytes()));
 				
 			break;

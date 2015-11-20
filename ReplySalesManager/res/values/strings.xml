@@ -36,5 +36,10 @@
     <string name="Description">Description</string>
     <string name="Quantity">Quantity</string>
     <string name="ProductID">Product ID</string>
+    <string name="ChooseUrlInPicker">Choose Url</string>
+    <string name="ChoosenUrl">Choosen Url</string>
+    <string name="url_test">URL for testing</string>
+    <string name="url_dep1">URL for development - Group 1</string>
+    <string name="url_dep2">URL for development - Group 2</string>
 
 </resources>

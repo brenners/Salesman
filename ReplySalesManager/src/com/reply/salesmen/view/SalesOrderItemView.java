@@ -132,6 +132,18 @@ public class SalesOrderItemView extends Activity implements SurfaceHolder.Callba
 	}
 	
 	@Override
+	protected void onDestroy() {
+		CameraManager cameraManager = CameraManager.getInstance(this);
+		if(cameraManager.getStatus().equals("Locked")) {
+        	cameraManager.stopCamera(this);
+        }		
+		
+		VoiceManager voice = VoiceManager.getInstance(this);				
+		voice.stop();
+		super.onDestroy();
+	}
+	
+	@Override
 	public void onBackPressed() {
 		CameraManager cameraManager = CameraManager.getInstance(this);
 		if(cameraManager.getStatus().equals("Locked")) {

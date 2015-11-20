@@ -19,8 +19,11 @@
  */
 package com.reply.salesmen.control;
 
+import com.reply.salesmen.R;
+
 import android.graphics.YuvImage;
 import android.webkit.WebView.FindListener;
+import android.widget.CheckBox;
 
 /**
  * @author s.brenner
@@ -39,11 +42,12 @@ public class SettingsManager {
 	private boolean useMockData;	
 	private boolean useMockDataGenerally;
 	
-	private String URL = "";
+	private static String URL = "";
+	private static String defaultURL = "url_test";	// default url 
 	
-	private int currentObjectId;
+	private static int currentObjectId;
 	
-	private String currentDevice;
+	private static String currentDevice;
 
 	/******************************************
 	 * 				Constructor 			  *
@@ -52,7 +56,8 @@ public class SettingsManager {
 	private SettingsManager() {
 		// Initialize Check box		
 		setUseMockData(false);
-		setUseMockDataGenerally(true);
+		setUseMockDataGenerally(false);
+		initURL();
 	}
 	
 	/******************************************
@@ -65,6 +70,13 @@ public class SettingsManager {
 		}
 		
 		return SettingsManager.settingsManager;
+	}
+	
+	public void initURL() {
+		// If settings are empty, define url per default
+		if(getURL().equals(""))  {						
+			setURL(defaultURL);
+		}
 	}
 
 	/**

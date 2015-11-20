@@ -1,5 +1,7 @@
 package com.reply.salesmen.view;
 
+import java.lang.reflect.Array;
+
 import com.reply.salesmen.R;
 import com.reply.salesmen.control.CameraManager;
 import com.reply.salesmen.control.ConstantManager;
@@ -7,6 +9,8 @@ import com.reply.salesmen.control.SettingsManager;
 import com.reply.salesmen.control.Voice.VoiceManager;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.view.Display;
@@ -14,6 +18,7 @@ import android.view.SurfaceHolder;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 import android.widget.VideoView;
 
 public class SettingsView extends Activity implements SurfaceHolder.Callback  {
@@ -42,31 +47,17 @@ public class SettingsView extends Activity implements SurfaceHolder.Callback  {
 		initUseMockUpButtons();
 	}
 	
-	private void initCBSwitchURLButton() {
+	private void initCBSwitchURLButton() {		
 		SettingsManager sm = SettingsManager.getInstance();
-		// Switch URL: Initialize Switch Button		
-		CheckBox cb_switchUrl = (CheckBox)findViewById(R.id.CB_SwitchURL);		
-		// If settings are empty, define url per default
-		if(sm.getURL().equals(""))  {			
-			// Set URL for Connection
-			if(cb_switchUrl.isChecked()) {
-				sm.setURL(ConstantManager.URL_DEV);
-		    } else {
-		    	sm.setURL(ConstantManager.URL_TEST);
-		    }
-		} else {
-			// set url as stored in settings object 
-			String currURL = sm.getURL();
-			
-			switch (currURL) {
-				case ConstantManager.URL_DEV:
-					cb_switchUrl.setChecked(true);
-					break;
-				case ConstantManager.URL_TEST:
-					cb_switchUrl.setChecked(false);
-					break;
-			}
-		}
+		String msg = getResources().getString(R.string.ChoosenUrl);
+		msg = msg + ": " + sm.getURL();
+		this.setLabelText(R.id.Btn_CheckURL_Label, msg);
+	}
+	
+	private void setLabelText(int id, String msg) {		
+		// display url		
+		TextView textView = (TextView) findViewById(id);		
+		textView.setText(msg);
 	}
 	
 	private void initUseMockUpButtons() {
@@ -132,22 +123,43 @@ public class SettingsView extends Activity implements SurfaceHolder.Callback  {
 		switch(view.getId()) {
 			case (R.id.CB_MockData):
 				CheckBox cb_mockdata = (CheckBox)findViewById(R.id.CB_MockData);
-				sm.setUseMockData(cb_mockdata.isChecked());
-				
+				sm.setUseMockData(cb_mockdata.isChecked());				
 				break;
 			case (R.id.CB_MockData_Al):
 				CheckBox cb_mockdata_al = (CheckBox)findViewById(R.id.CB_MockData_Al);
-				sm.setUseMockDataGenerally(cb_mockdata_al.isChecked());
-				
+				sm.setUseMockDataGenerally(cb_mockdata_al.isChecked());				
+				break;			
+			case(R.id.Btn_CheckURL):											
+				AlertDialog.Builder builder = new AlertDialog.Builder(SettingsView.this);
+			    builder.setTitle(R.string.ChooseUrlInPicker)
+			    		.setItems(this.getItems(), new DialogInterface.OnClickListener() {
+			               public void onClick(DialogInterface dialog, int which) {
+			            	   SettingsManager sm = SettingsManager.getInstance();
+			            	   // The 'which' argument contains the index position
+			            	   // of the selected item. The selected item represents the choosen url
+			            	   switch(which) {
+			            	   case 0:
+			            		   sm.setURL("url_test");
+			            		   break;
+			            	   case 1:
+			            		   sm.setURL("url_develop1");
+			            		   break;
+			            	   case 2:
+			            		   sm.setURL("url_develop2");
+			            		   break;
+		            		   default:
+		            			   sm.setURL("url_test");
+		            			   break;
+			            	   }
+			            	   // set label
+			            	   String msg = getResources().getString(R.string.ChoosenUrl);
+			            	   msg = msg + ": " + sm.getURL();
+			            	   setLabelText(R.id.Btn_CheckURL_Label, msg);
+			           }
+	    		});
+			    builder.create();
+			    builder.show();
 				break;
-			case (R.id.CB_SwitchURL):
-				CheckBox cb_switchUrl= (CheckBox)findViewById(R.id.CB_SwitchURL);
-				// Set URL for Connection
-				if(cb_switchUrl.isChecked()) {
-					sm.setURL("url_develop");
-			    } else {
-			    	sm.setURL("url_test");
-			    }
 		}	
 	}
 
@@ -169,7 +181,19 @@ public class SettingsView extends Activity implements SurfaceHolder.Callback  {
 	@Override
 	public void surfaceDestroyed(SurfaceHolder holder) {
 		
-	}	
+	}
+	
+	@Override
+	protected void onDestroy() {
+		CameraManager cameraManager = CameraManager.getInstance(this);
+		if(cameraManager.getStatus().equals("Locked")) {
+        	cameraManager.stopCamera(this);
+        }		
+		
+		VoiceManager voice = VoiceManager.getInstance(this);				
+		voice.stop();
+		super.onDestroy();
+	}
 	
 	@Override
 	public void onBackPressed() {
@@ -181,5 +205,13 @@ public class SettingsView extends Activity implements SurfaceHolder.Callback  {
 		VoiceManager voice = VoiceManager.getInstance(this);				
 		voice.stop();
 		super.onBackPressed();
+	}
+	
+	private String[] getItems() {		
+		String url_test = getResources().getString(R.string.url_test);
+		String url_dev1 = getResources().getString(R.string.url_dep1);
+		String url_dev2 = getResources().getString(R.string.url_dep2);
+		String[] arr = {url_test, url_dev1, url_dev2};
+		return arr;
 	}
 }

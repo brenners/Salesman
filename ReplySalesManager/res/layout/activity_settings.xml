@@ -121,15 +121,25 @@
 			        android:layout_marginRight="45dp"
 			        android:layout_marginTop="155dp"
 					android:text="@string/UseDevCon" />
-			    			    
-			    <CheckBox
-			        android:id="@+id/CB_SwitchURL"
+			    
+			    <Button 
+			        android:id="@+id/Btn_CheckURL"
+			        android:text="@string/ChooseUrlInPicker"
 			        android:layout_width="match_parent"
 			        android:layout_height="wrap_content"
 			        android:layout_marginStart="5dp"
 			        android:layout_marginLeft="5dp"
-			        android:layout_marginTop="140dp"
-			        android:onClick="onClick_Listener" />
+			        android:layout_marginTop="180dp"
+			        android:onClick="onClick_Listener"/>
+		    	
+		    	<TextView
+			        android:id="@+id/Btn_CheckURL_Label"
+			        android:layout_width="fill_parent"
+			        android:layout_height="wrap_content"
+			        android:layout_marginLeft="45dp"
+			        android:layout_marginRight="45dp"
+			        android:layout_marginTop="220dp" />
+			    
 		  </FrameLayout>      
     	</FrameLayout>
 	</FrameLayout>
